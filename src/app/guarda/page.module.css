@@ -1,0 +1,31 @@
+
+.divContainer{
+    width: 95vw;
+    height: 95vh;
+
+
+    .formContainer{
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        height: 60vh;
+        width: 50vw;
+        background-color: blue;
+        z-index: 99;
+        margin: -70vh 0 0 30vw;
+
+        .inputContainer{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            width: 90%;
+        }
+        .TextareaContainer{
+            display: flex;
+            flex-direction: column;
+            width:80%
+        }
+    }
+}

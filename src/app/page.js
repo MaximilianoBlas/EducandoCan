@@ -1,95 +1,55 @@
-import Image from "next/image";
+'use client'
+
+import { consultarApiMercadoPago, probarPostMercadoPago } from "./Redux/action/mercadoPago";
+import { consultarApi } from "./Redux/action/paqAr";
 import styles from "./page.module.css";
+import ProductCards from "./productCards/productCards";
+import { useDispatch, useSelector } from "react-redux";
 
-export default function Home() {
+// SDK de Mercado Pago
+// import  {MercadoPago}  from '@mercadopago/sdk-react';
+// import { MercadoPagoConfig, Preference } from 'mercadopago';
+import { useRouter } from 'next/navigation'
+import Navbar from "./components/navbar";
+import Presentacion from "./components/presentacion";
+import Servicios from "./components/servicios";
+
+// import { initMercadoPago } from '@mercadopago/sdk-react';
+
+
+// Agrega credenciales
+
+//   const mp = new MercadoPago(process.env.NEXT_PUBLIC_MP_PUBLIC_KEY);
+//   const bricksBuilder = mp.bricks();
+
+
+
+export default   function  Home () {
+  // const {preference} = useSelector((state) => state.mercadoPago)
+  const dispatch = useDispatch()
+
+  // const brick = initMercadoPago(process.env.NEXT_PUBLIC_MP_PUBLIC_KEY);
+  // console.log(brick)
+
+  // const router = useRouter();
+  // if(preference){ router.push(preference)}
+
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.js</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
+    <main className={styles.mainContainer}>
+      <Navbar/>
+      <Presentacion/>
+      <Servicios/>
+     {/* <ProductCards/>
+     <h1>Pruebas de paq.ar</h1>
+     <button onClick={() => dispatch(consultarApi())}>Consultar api</button> */}
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+     {/* <h1>Pruebas de Mercado Pago</h1>
+     <button onClick={() => dispatch(consultarApiMercadoPago())}>Rehabilitacion x 1 semana $20.000</button> */}
+     {/* <button onClick={() => dispatch(probarPostMercadoPago())}>Consultar post  api Mercado Pago</button> */}
+      
 
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
+       {/* <button onClick={() =>{console.log('hola')} }>pagar</button>  */}
     </main>
   );
 }
