@@ -136,8 +136,8 @@ export default function Guardas() {
   }
 
   const scheduleGuard = () => {
-    // dispatch(consultarApiMercadoPago(form))
-    dispatch(webhooks())
+    dispatch(consultarApiMercadoPago(form))
+    // dispatch(webhooks())
   }
 
   const completedForm = (e) => {
