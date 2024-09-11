@@ -1,7 +1,6 @@
 // const { models } = require('../../database/connection/database')
 const config = require('../../config')
 const {MercadoPagoConfig, Preference} = require('mercadopago')
-const {redirect} = require('next/navigation')
 
  const consulta = async (req, res) => {
   const {name,amount} = req.query
