@@ -162,7 +162,7 @@ export const probarPostMercadoPago = (payload) => async (dispatch) => {
     // const router = useRouter()
     console.log('entra al action consultar backend')
     try {
-    const { data } = await axios.get(`http://localhost:4000/api/v1/consultas/consulta?name=${payload.clientLastname} ${payload.clientName}&amount=${payload.amount}`)
+    const { data } = await axios.get(`http://educandocan-production.up.railway.app/api/v1/consultas/consulta?name=${payload.clientLastname} ${payload.clientName}&amount=${payload.amount}`)
     console.log(data)
     // RedirectPage(data)
     dispatch(setPreference(data))
