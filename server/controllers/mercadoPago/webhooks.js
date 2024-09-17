@@ -2,6 +2,7 @@
 
  const webhooks = async (req, res) => {
   console.log(req.query)
+  console.log('estamos en el webhooks backend')
 
  try {
 
