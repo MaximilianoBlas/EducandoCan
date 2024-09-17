@@ -11,7 +11,7 @@ const {webhooks} = require('../../controllers/mercadoPago/webhooks')
 // console.log(typeof consulta)
 
 routerConsultas.get('/consulta', consulta)
-routerConsultas.get('/webhooks', webhooks)
+routerConsultas.post('/webhooks', webhooks)
 
 
 
