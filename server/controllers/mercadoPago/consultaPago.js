@@ -11,9 +11,13 @@ const {MercadoPagoConfig, Preference, Payment, MercadoPago} = require('mercadopa
     const client = new MercadoPagoConfig({ accessToken: config.MP_PUBLIC_KEY });
     const payment = new Payment(client);
 
+    console.log('este es el pago',payment)
+
    const pago =  payment.get({
         id: '1319561230',
 }).then(console.log).catch(console.log);
+
+console.log(pago)
    
 
          res.json(pago)
