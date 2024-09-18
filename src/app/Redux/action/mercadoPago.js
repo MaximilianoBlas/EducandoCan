@@ -176,7 +176,7 @@ export const probarPostMercadoPago = (payload) => async (dispatch) => {
     // const router = useRouter()
     console.log('entra al action webhooks')
     try {
-    const { data } = await axios.get(`https://educandocan-production.up.railway.app/api/v1/consultas/webhooks`)
+    const { data } = await axios.get(`https://educandocan-production.up.railway.app/api/v1/consultas/consultaPago`)
     console.log(data)
     } catch (error) {
         console.log(error)
