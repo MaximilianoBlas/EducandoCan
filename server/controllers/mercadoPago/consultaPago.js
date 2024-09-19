@@ -13,15 +13,15 @@ const {MercadoPagoConfig, Preference, Payment, MercadoPago} = require('mercadopa
 
     console.log('este es el pago',payment)
 
-   const pago =  payment.get({
+   const pago = await payment.get({
         id: '1319561230',
-}).then(console.log).catch(console.log);
+})
 
 console.log('pago',pago)
 console.log('pago additional info item',pago.additional_info)
-console.log('pago card cardholder',pago.card.cardholder)
-console.log('pago additional info item',pago.charges_details.accounts)
-console.log('pago additional info item',pago.charges_details.amounts)
+// console.log('pago card cardholder',pago.card.cardholder)
+// console.log('pago additional info item',pago.charges_details.accounts)
+// console.log('pago additional info item',pago.charges_details.amounts)
 
          res.json(pago)
         } catch (error) {
