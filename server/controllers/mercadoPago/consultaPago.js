@@ -18,7 +18,7 @@ const {MercadoPagoConfig, Preference, Payment, MercadoPago} = require('mercadopa
     console.log('este es el pago',payment)
 
    const pago = await payment.get({
-        id: '1319561230',
+        id: param,
 })
 
 console.log('pago',pago)
