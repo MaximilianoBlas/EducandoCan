@@ -42,9 +42,9 @@ const {MercadoPagoConfig, Preference} = require('mercadopago')
           },
         },
         back_urls: {
-          success: '',
-          failure: '',
-          pending: '',
+          success: 'http://test.com/success',
+          failure: 'http://test.com/failure',
+          pending: 'http://test.com/pending',
         },
         differential_pricing: {
           id: 1,
@@ -55,7 +55,7 @@ const {MercadoPagoConfig, Preference} = require('mercadopago')
         binary_mode: true,
         external_reference: '1643827245',
         marketplace: 'marketplace',
-        notification_url: '',
+        notification_url: 'http://notificationurl.com',
         operation_type: 'regular_payment',
         payment_methods: {
           default_payment_method_id: '',
