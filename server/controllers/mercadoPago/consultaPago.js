@@ -5,7 +5,12 @@ const {MercadoPagoConfig, Preference, Payment, MercadoPago} = require('mercadopa
 
 
  const consultaPago = async (req, res) => {
-  const {name,amount} = req.query
+//   const {name,amount} = req.query
+
+    console.log('entro a consulta de pago backend')
+
+  console.log('estas son las query', req.query)
+  console.log('estos son los params', req.param)
 
  try {
     const client = new MercadoPagoConfig({ accessToken: config.MP_PUBLIC_KEY });
