@@ -3,6 +3,7 @@ const { consultaPago } = require("./consultaPago")
 
  const webhooks = async (req, res) => {
     const {type} = req.query
+    const data = req.query['data.id']
   console.log(req.query)
   console.log('type', type)
   console.log('data', req.query['data.id'])
