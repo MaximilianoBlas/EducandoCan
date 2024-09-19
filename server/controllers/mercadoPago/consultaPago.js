@@ -17,8 +17,11 @@ const {MercadoPagoConfig, Preference, Payment, MercadoPago} = require('mercadopa
         id: '1319561230',
 }).then(console.log).catch(console.log);
 
-console.log(pago)
-   
+console.log('pago',pago)
+console.log('pago additional info item',pago.additional_info.items)
+console.log('pago card cardholder',pago.card.cardholder)
+console.log('pago additional info item',pago.charges_details.accounts)
+console.log('pago additional info item',pago.charges_details.amounts)
 
          res.json(pago)
         } catch (error) {
