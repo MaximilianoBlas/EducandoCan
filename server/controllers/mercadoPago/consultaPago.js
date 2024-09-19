@@ -4,13 +4,12 @@ const {MercadoPagoConfig, Preference, Payment, MercadoPago} = require('mercadopa
 // const MercadoPago = require('mercadopago')
 
 
- const consultaPago = async (req, res) => {
+ const consultaPago = async (param) => {
 //   const {name,amount} = req.query
 
     console.log('entro a consulta de pago backend')
 
-  console.log('estas son las query', req.query)
-  console.log('estos son los params', req.param)
+  console.log('estos son los params', param)
 
  try {
     const client = new MercadoPagoConfig({ accessToken: config.MP_PUBLIC_KEY });
@@ -28,7 +27,8 @@ console.log('pago card cardholder',pago.card.cardholder)
 console.log('pago additional info item',pago.charges_details.accounts)
 console.log('pago additional info item',pago.charges_details.amounts)
 
-         res.json(pago)
+        //  res.json(pago)
+        return pago
         } catch (error) {
             console.log(error)
         }
