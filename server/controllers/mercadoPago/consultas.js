@@ -12,7 +12,7 @@ const {MercadoPagoConfig, Preference} = require('mercadopago')
        body : {
         items: [
           {
-            id: '35131389',
+            id: '35131399',
             title: 'educando can',
             description: 'Guarda',
             picture_url: '',
@@ -26,14 +26,14 @@ const {MercadoPagoConfig, Preference} = require('mercadopago')
         payer: {
           name: playerName,
           surname: '',
-          email: 'silvamaxiblas@gmail.com',
+          email: '',
           phone: {
             area_code: '341',
             number: '6297919',
           },
           identification: {
             type: 'DNI',
-            number: '35131389',
+            number: '12345678',
           },
           address: {
             zip_code: '2121',
