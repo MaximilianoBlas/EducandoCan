@@ -211,7 +211,7 @@ export default function Guardas() {
       <textarea value={form.description} onChange={(e) => {completedForm(e.target)}}  minLength={10}  rows={5} type="text" name='description' />
         </div>
         {/* </div> */}
-        <h6>Costo de estadía {`${form.amount}`}</h6>
+        <h6>Costo de estadía {`${form.amount} ${form.email}`}</h6>
         <button onClick={(e) =>{scheduleGuard(e)}}>Agendar</button>
     </div>
     }
