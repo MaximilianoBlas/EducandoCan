@@ -55,8 +55,16 @@ export default function Guardas() {
   }
 
   const createEvent = (e)=>{
-   
     setFormView(!formView)
+    if(formView) {
+    setForm({ startDate:'',
+    endDate:'',
+    clientName: '',
+    clientLastname:'',
+    email: '',
+    phone: '',
+    description: '', 
+    amount:''})}
     let {start} = e
     let string = start.toString()
     let stringArray = string.split(' ')
@@ -69,15 +77,6 @@ export default function Guardas() {
     }
     setForm({...form, startDate: `${date.year}-${numberMonth[date.month]}-${date.number}`})
     setDateGuard(date)
-    if(formView) {
-    setForm({ startDate:'',
-    endDate:'',
-    clientName: '',
-    clientLastname:'',
-    email: '',
-    phone: '',
-    description: '', 
-    amount:''})}
   }
 
   const days = {
