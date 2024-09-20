@@ -25,8 +25,6 @@ const {MercadoPagoConfig, Preference, Payment, MercadoPago} = require('mercadopa
 console.log('pago',pago)
 console.log('pago additional info item',pago.additional_info)
 console.log('pago card cardholder',pago.card.cardholder)
-console.log('pago accounts',pago.charges_details[0].accounts)
-console.log('pago amounts',pago.charges_details[0].amounts)
 
         //  res.json(pago)
         return pago

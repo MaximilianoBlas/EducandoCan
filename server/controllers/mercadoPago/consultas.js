@@ -5,6 +5,8 @@ const {MercadoPagoConfig, Preference} = require('mercadopago')
  const consulta = async (req, res) => {
   const {name,description,email,phone,amount} = req.query
   const playerName = name
+
+  console.log('esto es description', description, 'esta es email', email, 'esto es phone', phone)
  try {
     const client = new MercadoPagoConfig({ accessToken: config.MP_PUBLIC_KEY });
 
@@ -14,7 +16,7 @@ const {MercadoPagoConfig, Preference} = require('mercadopago')
   items: [
     {id: `Clases ${name}`,
       title: 'Clases Educando Can',
-      description,
+      description: "esta es la descripcion",
       quantity: 1,
       unit_price: Number(amount)
     },
@@ -22,7 +24,7 @@ const {MercadoPagoConfig, Preference} = require('mercadopago')
   payer: {
         name: playerName,
         surname: name,
-        email,
+        email: 'esteEsDePrueba@gmail.com',
         phone: {
           area_code: '341',
           number: '6297919',
