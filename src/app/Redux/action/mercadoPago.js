@@ -160,7 +160,7 @@ export const probarPostMercadoPago = (payload) => async (dispatch) => {
 
   export const consultarApiMercadoPago = (payload) => async (dispatch) => {
     // const router = useRouter()
-    console.log('entra al action consultar backend')
+    console.log('entra al action consultar backend', payload)
     try {
     const { data } = await axios.get(`https://educandocan-production.up.railway.app/api/v1/consultas/consulta?name=${payload.clientLastname} ${payload.clientName}&amount=${payload.amount}&description=${payload.description}&email=${payload.email}`)
     console.log(data)

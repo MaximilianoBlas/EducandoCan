@@ -4,6 +4,7 @@ const {MercadoPagoConfig, Preference} = require('mercadopago')
 
  const consulta = async (req, res) => {
   console.log('entra en creación de pago')
+  console.log('req.query', req.query)
   const {name,description,email,phone,amount} = req.query
   const playerName = name
 
@@ -28,7 +29,10 @@ const {MercadoPagoConfig, Preference} = require('mercadopago')
         name: playerName,
         surname: name,
         email: 'esteEsDePrueba@gmail.com',
-        phone: '3416297919',
+        phone: {
+          area_code:'341',
+          number: '6297919'
+        },
         // identification: {
         //   type: '',
         //   number: '',
