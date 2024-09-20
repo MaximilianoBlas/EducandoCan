@@ -31,7 +31,8 @@ export default function Guardas() {
   })
   if(preference)router.push(preference)
   
-  console.log(preference)
+  // console.log(preference)
+  console.log(form)
 
   // const [event, setEvent] = useState()
 
@@ -135,9 +136,9 @@ export default function Guardas() {
   }
 
 
-  console.log(form)
+  // console.log(form)
   const scheduleGuard = () => {
-    console.log(form)
+    // console.log(form)
     dispatch(consultarApiMercadoPago(form))
     
     // dispatch(webhooks())
