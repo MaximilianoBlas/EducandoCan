@@ -135,6 +135,8 @@ export default function Guardas() {
     Dec: 12
   }
 
+
+  console.log(form)
   const scheduleGuard = () => {
     console.log(form)
     dispatch(consultarApiMercadoPago(form))
