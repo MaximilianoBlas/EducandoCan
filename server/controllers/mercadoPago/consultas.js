@@ -20,7 +20,7 @@ const {MercadoPagoConfig, Preference} = require('mercadopago')
   items: [
     {id: `Clases ${name}`,
       title: 'Clases Educando Can',
-      description: "esta es la descripcion",
+      description,
       quantity: 1,
       unit_price: Number(amount)
     },
@@ -28,10 +28,10 @@ const {MercadoPagoConfig, Preference} = require('mercadopago')
   payer: {
         name: playerName,
         surname: name,
-        email: 'esteEsDePrueba@gmail.com',
+        email,
         phone: {
-          area_code:'341',
-          number: '6297919'
+          area_code:'',
+          number: phone
         },
         // identification: {
         //   type: '',
