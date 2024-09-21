@@ -7,6 +7,8 @@ const {MercadoPagoConfig, Preference} = require('mercadopago')
   console.log('req.query', req.query)
   const {name,description,email,phone,amount} = req.query
   const playerName = name
+  const today = new Date()
+  const milliseconds = today.getTime()
 
   try {
 
@@ -16,9 +18,10 @@ const {MercadoPagoConfig, Preference} = require('mercadopago')
 
     const preference = await new Preference(client).create({
 
+
  body: {
   items: [
-    {id: `Clases ${name}`,
+    {id: `Clases${name}${milliseconds}`,
       title: 'Clases Educando Can',
       description,
       quantity: 1,
