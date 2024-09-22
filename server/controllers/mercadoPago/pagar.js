@@ -2,7 +2,7 @@
 const config = require('../../config')
 const {MercadoPagoConfig, Preference} = require('mercadopago')
 
- const consulta = async (req, res) => {
+ const pagar = async (req, res) => {
   console.log('entra en creación de pago')
   console.log('req.query', req.query)
   const {name,description,email,phone,amount} = req.query
@@ -60,7 +60,7 @@ const {MercadoPagoConfig, Preference} = require('mercadopago')
          
         }
         
- module.exports = {consulta}
+ module.exports = {pagar}
 
 
 

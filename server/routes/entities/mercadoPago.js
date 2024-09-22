@@ -1,7 +1,7 @@
 const Router = require("express")
-const routerConsultas = Router()
+const routerMercadoPago = Router()
 
-const {consulta} = require('../../controllers/mercadoPago/consultas')
+const {pagar} = require('../../controllers/mercadoPago/pagar')
 const {consultaPago} = require('../../controllers/mercadoPago/consultaPago')
 const {webhooks} = require('../../controllers/mercadoPago/webhooks')
 
@@ -11,11 +11,11 @@ const {webhooks} = require('../../controllers/mercadoPago/webhooks')
 
 // console.log(typeof consulta)
 
-routerConsultas.get('/consulta', consulta)
-routerConsultas.get('/consultaPago', consultaPago)
+routerMercadoPago.get('/pagar', pagar)
+routerMercadoPago.get('/consultaPago', consultaPago)
 
-routerConsultas.post('/webhooks', webhooks)
+routerMercadoPago.post('/webhooks', webhooks)
 
 
 
-module.exports = routerConsultas
+module.exports = routerMercadoPago

@@ -2,9 +2,9 @@ const Router = require("express")
 
 const routerApi = Router()
 
-const routerConsultas = require("./entities/consultas")
+const ruoterMercadoPago = require("./entities/mercadoPago")
 
-routerApi.use('/consultas', routerConsultas)
+routerApi.use('/mercadoPago', ruoterMercadoPago)
 
 // routerApi.get('/consultas', (req, res) => {
 //     res.json({message:"Hello World!"})
