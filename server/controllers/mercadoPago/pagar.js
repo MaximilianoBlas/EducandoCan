@@ -51,6 +51,17 @@ const {MercadoPagoConfig, Preference} = require('mercadopago')
       })
       const url = preference.sandbox_init_point
 
+      await models.calendar.create({
+        // where: {},
+        // tuncate: true
+        subscription: newSubscriptionObject,
+        name,
+        email, 
+        description,
+        startDate:'ponele de acá',
+        endDate:'ponele hasta acá',
+      })
+
          res.json(url)
         } catch (error) {
             console.log(error)

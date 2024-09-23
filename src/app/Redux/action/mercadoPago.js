@@ -162,7 +162,7 @@ export const probarPostMercadoPago = (payload) => async (dispatch) => {
     // const router = useRouter()
     console.log('entra al action consultar backend', payload)
     try {
-    const { data } = await axios.get(`https://educandocan-production.up.railway.app/api/v1/mercadoPago/pagar?name=${payload.clientLastname} ${payload.clientName}&amount=${payload.amount}&description=${payload.description}&email=${payload.email}`)
+    const { data } = await axios.get(`https://educandocan-production.up.railway.app/api/v1/mercadoPago/pagar?name=${payload.clientLastname} ${payload.clientName}&amount=${payload.amount}&description=${payload.description}&email=${payload.email}&phone=${payload.phone}`)
     console.log(data)
     // RedirectPage(data)
     dispatch(setPreference(data))
