@@ -44,3 +44,5 @@ module.exports = (sequelize) => {
     }
   );
 };
+
+sequelize.sync();
