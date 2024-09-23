@@ -52,7 +52,7 @@ const { models } = require('../../db')
       })
       const url = preference.sandbox_init_point
 
-      await models.calendar.create({
+      await models.Calendar.create({
         // where: {},
         // tuncate: true
         name,
