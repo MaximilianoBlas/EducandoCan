@@ -1,6 +1,7 @@
 // const { models } = require('../../database/connection/database')
 const config = require('../../config')
 const {MercadoPagoConfig, Preference} = require('mercadopago')
+const { models } = require('../../db')
 
  const pagar = async (req, res) => {
   console.log('entra en creación de pago')
