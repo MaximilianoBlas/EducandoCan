@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize')
 const fs = require('fs');
 const path = require('path');
-const calendar = require('./models/bd/bdCalendar')
+const Calendar = require('./models/bd/bdCalendar')
 
 const sequelize = new Sequelize({
           database: process.env.DB_NAME,
@@ -44,7 +44,7 @@ let capsEntries = entries.map((entry) => [entry[0][0].toUpperCase() + entry[0].s
 sequelize.models = Object.fromEntries(capsEntries);
 
 
-calendar(sequelize);
+Calendar(sequelize);
 
 module.exports = sequelize
 

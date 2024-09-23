@@ -54,7 +54,6 @@ const {MercadoPagoConfig, Preference} = require('mercadopago')
       await models.calendar.create({
         // where: {},
         // tuncate: true
-        subscription: newSubscriptionObject,
         name,
         email, 
         description,
