@@ -1,4 +1,14 @@
-const { DataTypes } = require("sequelize");
+const { Sequelize, DataTypes } = require('sequelize');
+const sequelize = new Sequelize(
+  'railway', // Nombre de la base de datos
+  'postgres', // Usuario de la base de datos
+  'alvwOLooJwOQwlDrFaOBqtTvHEGovvpK', // Contraseña de la base de datos
+  {
+    host: 'postgres-ppsc.railway.internal', // Host (servidor de la base de datos)
+    port: 5432, // Puerto de la base de datos (5432 es el predeterminado para PostgreSQL)
+    dialect: 'postgres', // Tipo de base de datos
+  }
+);
 // Exportamos una funcion que define el modelo
 // Luego le injectamos la conexion a sequelize.
 
