@@ -162,7 +162,7 @@ export const probarPostMercadoPago = (payload) => async (dispatch) => {
     // const router = useRouter()
     console.log('entra al action consultar backend', payload)
     try {
-    const { data } = await axios.get(`https://educandocan-production.up.railway.app/api/v1/consultas/consulta?name=${payload.clientLastname} ${payload.clientName}&amount=${payload.amount}&description=${payload.description}&email=${payload.email}`)
+    const { data } = await axios.get(`https://educandocan-production.up.railway.app/api/v1/mercadoPago/pagar?name=${payload.clientLastname} ${payload.clientName}&amount=${payload.amount}&description=${payload.description}&email=${payload.email}`)
     console.log(data)
     // RedirectPage(data)
     dispatch(setPreference(data))
@@ -176,7 +176,7 @@ export const probarPostMercadoPago = (payload) => async (dispatch) => {
     // const router = useRouter()
     console.log('entra al action webhooks')
     try {
-    const { data } = await axios.get(`https://educandocan-production.up.railway.app/api/v1/consultas/consultaPago`)
+    const { data } = await axios.get(`https://educandocan-production.up.railway.app/api/v1/mercadoPago/consultaPago`)
     console.log(data)
     } catch (error) {
         console.log(error)
