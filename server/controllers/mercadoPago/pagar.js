@@ -16,8 +16,6 @@ const { models } = require('../../db')
 
    console.log('startDate', startDate, 'endDate',endDate)
 
-  console.log(calendar)
-
     const client = new MercadoPagoConfig({ accessToken: config.MP_PUBLIC_KEY });
 
     const preference = await new Preference(client).create({

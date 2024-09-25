@@ -56,7 +56,6 @@ export default function Guardas() {
   }
 
   const createEvent = (e)=>{
-    console.log('entre en create event')
     setFormView(!formView)
  
     let {start} = e
@@ -138,19 +137,14 @@ export default function Guardas() {
   }
 
 
-  // console.log(form)
+
   const scheduleGuard = () => {
-    // console.log(form)
     dispatch(consultarApiMercadoPago(form))
     
     // dispatch(webhooks())
   }
 
-    console.log('no andan los console log')
   const completedForm = (e) => {
-    console.log('entra en complete form')
-    console.log('form',form)
-    console.log('e', e)
     if(form.startDate && e.type === 'date'){
       let startDate =  form.startDate.split('-')
       let endDate = e.value.split('-')
