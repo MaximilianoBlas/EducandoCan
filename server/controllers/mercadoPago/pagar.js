@@ -8,7 +8,7 @@ const { models } = require('../../db')
   console.log('entra en creación de pago')
   console.log('req.query', req.query)
   const {name,description,email,phone,amount,startDate,endDate} = req.query
-  const playerName = name
+  const playerName = name.split(' ').join('')
   const today = new Date()
   const milliseconds = today.getTime()
 
@@ -19,7 +19,7 @@ const { models } = require('../../db')
    await models.Calendar.create({
     // where: {},
     // tuncate: true
-    paymentId: `Clases${name}${milliseconds}`,
+    paymentId: `ClasesClases${playerName}${milliseconds}`,
     name,
     email, 
     description,
@@ -42,7 +42,7 @@ const { models } = require('../../db')
 
  body: {
   items: [
-    {id: `Clases${name}${milliseconds}`,
+    {id: `Clases${playerName}${milliseconds}`,
       title: 'Clases Educando Can',
       description,
       quantity: 1,
