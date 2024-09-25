@@ -34,7 +34,7 @@ const currentClass = await models.Calendar.findOne({
     }
   })
 
-  currentClass.payment = accepted
+  currentClass.payment = 'accepted'
   currentClass.save()
 
 
