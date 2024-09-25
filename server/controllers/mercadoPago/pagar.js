@@ -4,6 +4,7 @@ const {MercadoPagoConfig, Preference} = require('mercadopago')
 const { models } = require('../../db')
 
  const pagar = async (req, res) => {
+
   console.log('entra en creación de pago')
   console.log('req.query', req.query)
   const {name,description,email,phone,amount,startDate,endDate} = req.query
@@ -18,6 +19,7 @@ const { models } = require('../../db')
    await models.Calendar.create({
     // where: {},
     // tuncate: true
+    paymentId: `Clases${name}${milliseconds}`,
     name,
     email, 
     description,
@@ -25,11 +27,11 @@ const { models } = require('../../db')
     endDate:'ponele hasta acá',
   })
 
-  const calendar = await models.Calendar.findOne({
-    where: {
-      name, email
-    }
-  })
+  // const calendar = await models.Calendar.findOne({
+  //   where: {
+  //     name, email
+  //   }
+  // })
 
   console.log(calendar)
 
