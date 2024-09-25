@@ -1,6 +1,7 @@
 // const { models } = require('../../database/connection/database')
 const config = require('../../config')
 const {MercadoPagoConfig, Preference, Payment, MercadoPago} = require('mercadopago')
+const { models } = require('../../db')
 // const MercadoPago = require('mercadopago')
 
 

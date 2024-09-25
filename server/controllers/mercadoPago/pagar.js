@@ -56,7 +56,7 @@ const { models } = require('../../db')
       await models.Calendar.create({
         // where: {},
         // tuncate: true
-        paymentId: `ClasesClases${playerName}${milliseconds}`,
+        paymentId: `Clases${playerName}${milliseconds}`,
         name,
         email, 
         description,
