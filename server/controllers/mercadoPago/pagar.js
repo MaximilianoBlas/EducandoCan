@@ -14,24 +14,7 @@ const { models } = require('../../db')
 
   try {
 
-   console.log('esto es description', description, 'esta es email', email, 'esto es phone', phone, 'startDate', startDate, 'endDate',endDate)
-
-   await models.Calendar.create({
-    // where: {},
-    // tuncate: true
-    paymentId: `ClasesClases${playerName}${milliseconds}`,
-    name,
-    email, 
-    description,
-    startDate:'ponele de acá',
-    endDate:'ponele hasta acá',
-  })
-
-  // const calendar = await models.Calendar.findOne({
-  //   where: {
-  //     name, email
-  //   }
-  // })
+   console.log('startDate', startDate, 'endDate',endDate)
 
   console.log(calendar)
 
@@ -72,7 +55,16 @@ const { models } = require('../../db')
       })
       const url = preference.sandbox_init_point
 
-      
+      await models.Calendar.create({
+        // where: {},
+        // tuncate: true
+        paymentId: `ClasesClases${playerName}${milliseconds}`,
+        name,
+        email, 
+        description,
+        startDate,
+        endDate,
+      })
 
          res.json(url)
         } catch (error) {
