@@ -24,9 +24,19 @@ const {MercadoPagoConfig, Preference, Payment, MercadoPago} = require('mercadopa
 
 console.log('pago',pago)
 console.log('pago additional info item',pago.additional_info)
+console.log('id que viene de mercado pago', pago.additional_info.items[0].id)
 console.log('pago card cardholder',pago.card.cardholder)
 
-        //  res.json(pago)
+const currentClass = await models.Calendar.findOne({
+    where: {
+        paymentId: pago.additional_info.items[0].id
+    }
+  })
+
+  currentClass.payment = accepted
+  currentClass.save()
+
+
         return pago
         } catch (error) {
             console.log(error)
