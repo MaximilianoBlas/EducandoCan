@@ -6,14 +6,32 @@ const { models } = require('../../db')
  const pagar = async (req, res) => {
   console.log('entra en creación de pago')
   console.log('req.query', req.query)
-  const {name,description,email,phone,amount} = req.query
+  const {name,description,email,phone,amount,startDate,endDate} = req.query
   const playerName = name
   const today = new Date()
   const milliseconds = today.getTime()
 
   try {
 
-   console.log('esto es description', description, 'esta es email', email, 'esto es phone', phone)
+   console.log('esto es description', description, 'esta es email', email, 'esto es phone', phone, 'startDate', startDate, 'endDate',endDate)
+
+   await models.Calendar.create({
+    // where: {},
+    // tuncate: true
+    name,
+    email, 
+    description,
+    startDate:'ponele de acá',
+    endDate:'ponele hasta acá',
+  })
+
+  const calendar = await models.Calendar.findOne({
+    where: {
+      name, email
+    }
+  })
+
+  console.log(calendar)
 
     const client = new MercadoPagoConfig({ accessToken: config.MP_PUBLIC_KEY });
 
@@ -52,15 +70,7 @@ const { models } = require('../../db')
       })
       const url = preference.sandbox_init_point
 
-      await models.Calendar.create({
-        // where: {},
-        // tuncate: true
-        name,
-        email, 
-        description,
-        startDate:'ponele de acá',
-        endDate:'ponele hasta acá',
-      })
+      
 
          res.json(url)
         } catch (error) {
