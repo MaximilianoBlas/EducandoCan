@@ -53,7 +53,7 @@ export default function Guardas() {
  currentEvent.push({...e,
         title: e.name,
          start: dayjs(start).toDate(),
-      end : dayjs(end).toDate(),})
+      end : dayjs(start).toDate(),})
     });
     setEvent(currentEvent)
     },[calendar])
