@@ -10,12 +10,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import {consultarApiMercadoPago, webhooks} from '../Redux/action/mercadoPago'
 import { useRouter } from 'next/navigation';
 import { upDateCalendar } from '../Redux/action/calendar';
+import { getCurrentDollar } from '../Redux/action/currentDollar';
 
 
 export default function Guardas() {
   const dispatch = useDispatch()
   const {preference} = useSelector((state) => state.mercadoPago)
   const {calendar} = useSelector((state) => state.calendar)
+  const {currentDollar} = useSelector((state) => state.currentDollar)
   const router = useRouter()
   const [view, setView] = useState('month')
   const [date, setDate] = useState(new Date())
@@ -32,10 +34,16 @@ export default function Guardas() {
     amount:''
   })
   const [event, setEvent] = useState([])
+  const [hour, setHour] = useState('')
+
   if(preference)router.push(preference)
+
     useEffect(()=>{
   dispatch(upDateCalendar())
+  dispatch(getCurrentDollar())
   },[])
+
+  console.log(form)
 
   useEffect(()=>{
     let currentEvent = []
@@ -50,27 +58,7 @@ export default function Guardas() {
     setEvent(currentEvent)
     },[calendar])
 
-  // const [event, setEvent] = useState()
-
   const localizer = dayjsLocalizer(dayjs)
-  // const localizer = momentLocalizer(moment)
-
-//  calendar.forEach(e => {
-//       let start = e.startDate
-//       let end = e.endDate
-//       return {...e,
-//         title: e.name,
-//          start: dayjs(start).toDate(),
-//       end : dayjs(end).toDate(),}
-//     });
-
-  // const event = [
-  //   {
-  //     start:dayjs('2024-08-17').toDate(),
-  //     end:dayjs('2024-08-24').toDate(),
-  //     title:'Guarda de Rocco'
-  //   }
-  // ]
 
   const onView = (e) =>{
    if(view !== e) setView(e)
@@ -80,9 +68,10 @@ export default function Guardas() {
     if(view !== e) setDate(e)
   }
 
+
+
   const createEvent = (e)=>{
     setFormView(!formView)
- 
     let {start} = e
     let string = start.toString()
     let stringArray = string.split(' ')
@@ -93,7 +82,14 @@ export default function Guardas() {
       year:stringArray[3],
       hour:stringArray[4],
     }
-    setForm({...form, startDate: `${date.year}-${numberMonth[date.month]}-${date.number}`})
+    console.log(stringArray[4].split(':').shift())
+    console.log(stringArray[4] === '00:00:00')
+  if(stringArray[4] === '00:00:00') date = {...date, hour:''} 
+  else {date = {...date, hour:stringArray[4]}
+    setHour(stringArray[4].split(':').slice(0,2).join(':'))}
+
+    console.log(date.hour)
+    setForm({...form, startDate: `${date.year}-${numberMonth[date.month]}-${date.number}-${date.hour}`, amount:currentDollar*50})
     setDateGuard(date)
     if(formView) {
       setForm({ startDate:'',
@@ -170,17 +166,25 @@ export default function Guardas() {
   }
 
   const completedForm = (e) => {
-    if(form.startDate && e.type === 'date'){
+    if(form.startDate && e.type === 'time'){      
+      setHour(e.value)
+      console.log('startDate', form.startDate)
       let startDate =  form.startDate.split('-')
-      let endDate = e.value.split('-')
-      if(startDate[1]*1 === endDate[1]*1){
-        let amount = Number(endDate[2]) - Number(startDate[2])
-        setForm({...form,[e.name]:e.value, amount:amount*10000})
-      } else{
-        let numberMonth = extensionMonth[dateGuard.month]
-        let amount = numberMonth - Number(startDate[2]) + Number(endDate[2])
-        setForm({...form,[e.name]:e.value, amount:amount*10000})
-      }
+      startDate[3] = e.value
+      let newStart = startDate.join('-')
+
+      console.log('startDate', newStart)
+      setForm({...form, startDate:newStart})
+
+
+      // if(startDate[1]*1 === endDate[1]*1){
+      //   let amount = Number(endDate[2]) - Number(startDate[2])
+      //   setForm({...form,[e.name]:e.value, amount:amount*10000})
+      // } else{
+      //   let numberMonth = extensionMonth[dateGuard.month]
+      //   let amount = numberMonth - Number(startDate[2]) + Number(endDate[2])
+      //   setForm({...form,[e.name]:e.value, amount:amount*10000})
+      // }
     }else setForm({...form,[e.name]:e.value})
   }
 
@@ -196,15 +200,15 @@ export default function Guardas() {
       formView &&
     <div className={style.formContainer}>
       {/* <div className={style.inputContainer}> */}
-      <h3>Agenda una guarda</h3>
+      <h3>Agenda de Clase</h3>
       
       <div className={style.inputContainer}>
       <div>
-      <label htmlFor="start">Inicio: {`${days[dateGuard.day]} ${dateGuard.number} ${months[dateGuard.month]}`}</label>
+      <label htmlFor="start">{`${days[dateGuard.day]} ${dateGuard.number} ${months[dateGuard.month]} ${hour}`}</label>
       </div>
       <div>
-      <label htmlFor="end">Fin</label>
-      <input value={form.endDate} onChange={(e) => {completedForm(e.target)}} type='date' name='endDate' />
+      <label htmlFor="end"></label>
+      <input value={hour} onChange={(e) => {completedForm(e.target)}} type='time'  name='endDate' />
         </div>
       </div>
       <div className={style.inputContainer}>
@@ -232,7 +236,7 @@ export default function Guardas() {
       <textarea value={form.description} onChange={(e) => {completedForm(e.target)}}  minLength={10}  rows={5} type="text" name='description' />
         </div>
         {/* </div> */}
-        <h6>Costo de estadía {`${form.amount}`}</h6>
+        <h6>Costo de clase {`${currentDollar*50}`}</h6>
         <button onClick={(e) =>{scheduleGuard(e)}}>Agendar</button>
     </div>
     }
