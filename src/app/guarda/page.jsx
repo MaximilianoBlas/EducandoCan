@@ -38,14 +38,16 @@ export default function Guardas() {
   },[])
 
   useEffect(()=>{
+    let currentEvent = []
         calendar.forEach(e => {
       let start = e.startDate
       let end = e.endDate
-      setEvent([...event, {...e,
+ currentEvent.push({...e,
         title: e.name,
          start: dayjs(start).toDate(),
-      end : dayjs(end).toDate(),}])
+      end : dayjs(end).toDate(),})
     });
+    setEvent(currentEvent)
     console.log('calendar 2 ', event)
     },[calendar])
   console.log(form)
