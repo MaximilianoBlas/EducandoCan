@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import style from './page.module.css';
 import {Calendar, dayjsLocalizer,momentLocalizer } from 'react-big-calendar'
 import 'react-big-calendar/lib/css/react-big-calendar.css'
@@ -9,11 +9,13 @@ import { Chela_One } from 'next/font/google';
 import { useDispatch, useSelector } from 'react-redux';
 import {consultarApiMercadoPago, webhooks} from '../Redux/action/mercadoPago'
 import { useRouter } from 'next/navigation';
+import { upDateCalendar } from '../Redux/action/calendar';
 
 
 export default function Guardas() {
   const dispatch = useDispatch()
   const {preference} = useSelector((state) => state.mercadoPago)
+  const {calendar} = useSelector((state) => state.calendar)
   const router = useRouter()
   const [view, setView] = useState('month')
   const [date, setDate] = useState(new Date())
@@ -30,8 +32,11 @@ export default function Guardas() {
     amount:''
   })
   if(preference)router.push(preference)
+    useEffect(()=>{
+  dispatch(upDateCalendar())
+  },[])
   
-  // console.log(preference)
+    console.log('esto es calendar en front',calendar)
   console.log(form)
 
   // const [event, setEvent] = useState()

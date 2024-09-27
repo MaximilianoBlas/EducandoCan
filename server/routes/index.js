@@ -5,6 +5,7 @@ const routerApi = Router()
 const ruoterMercadoPago = require("./entities/mercadoPago")
 
 routerApi.use('/mercadoPago', ruoterMercadoPago)
+routerApi.use('/upDateCalendar', ruoterUpDateCalendar)
 
 // routerApi.get('/consultas', (req, res) => {
 //     res.json({message:"Hello World!"})
