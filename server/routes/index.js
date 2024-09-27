@@ -3,6 +3,7 @@ const Router = require("express")
 const routerApi = Router()
 
 const ruoterMercadoPago = require("./entities/mercadoPago")
+const ruoterUpDateCalendar = require("./entities/upDateCalendar")
 
 routerApi.use('/mercadoPago', ruoterMercadoPago)
 routerApi.use('/upDateCalendar', ruoterUpDateCalendar)
