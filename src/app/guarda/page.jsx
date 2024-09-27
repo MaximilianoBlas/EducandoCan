@@ -31,12 +31,23 @@ export default function Guardas() {
     description: '', 
     amount:''
   })
+  const [event, setEvent] = useState([])
   if(preference)router.push(preference)
     useEffect(()=>{
   dispatch(upDateCalendar())
   },[])
-  
-    console.log('esto es calendar en front',calendar)
+
+  useEffect(()=>{
+        calendar.forEach(e => {
+      let start = e.startDate
+      let end = e.endDate
+      setEvent([...event, {...e,
+        title: e.name,
+         start: dayjs(start).toDate(),
+      end : dayjs(end).toDate(),}])
+    });
+    console.log('calendar 2 ', event)
+    },[calendar])
   console.log(form)
 
   // const [event, setEvent] = useState()
@@ -44,13 +55,22 @@ export default function Guardas() {
   const localizer = dayjsLocalizer(dayjs)
   // const localizer = momentLocalizer(moment)
 
-  const event = [
-    {
-      start:dayjs('2024-08-17').toDate(),
-      end:dayjs('2024-08-24').toDate(),
-      title:'Guarda de Rocco'
-    }
-  ]
+//  calendar.forEach(e => {
+//       let start = e.startDate
+//       let end = e.endDate
+//       return {...e,
+//         title: e.name,
+//          start: dayjs(start).toDate(),
+//       end : dayjs(end).toDate(),}
+//     });
+
+  // const event = [
+  //   {
+  //     start:dayjs('2024-08-17').toDate(),
+  //     end:dayjs('2024-08-24').toDate(),
+  //     title:'Guarda de Rocco'
+  //   }
+  // ]
 
   const onView = (e) =>{
    if(view !== e) setView(e)
