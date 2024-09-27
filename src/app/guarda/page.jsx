@@ -48,9 +48,7 @@ export default function Guardas() {
       end : dayjs(end).toDate(),})
     });
     setEvent(currentEvent)
-    console.log('calendar 2 ', event)
     },[calendar])
-  console.log(form)
 
   // const [event, setEvent] = useState()
 
