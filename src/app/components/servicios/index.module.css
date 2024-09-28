@@ -1,8 +1,28 @@
+
 .mainContainer{
+    visibility: visible;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     width: 100%;
     margin-top: 160vh;
    
+}
+
+
+
+@media screen and (max-width: 400px) { 
+    
+    .mainContainer{
+
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        height: auto;
+        width: 100%;
+        position: relative;
+        margin-top: 5%;
+    }
+    
 }

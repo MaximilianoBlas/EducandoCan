@@ -1,3 +1,6 @@
+
+
+
 .main{
     /* display: grid; */
     /* grid-template-columns: 1fr 1fr; */
@@ -38,5 +41,45 @@
     display: flex;
     width: 50%;
     margin-left: 1%;
+}
+
+@media screen and (max-width: 400px){
+    .main{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-content: space-around;
+        flex: 1;
+        height: auto;
+        width: 90%;
+        position: relative;
+        margin: 20% 5% 0 5%;
+        color: #333333;
+    }
+
+    .titleAndTextContainer {
+        /* display: grid; */
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        margin: -2% 1% 0 0;
+    
+        .titleContainer{
+            display: flex;
+            justify-content: center;
+        }
+    
+        .textContainer {
+            font-size:x-large;
+        }
+    }
+    
+    .imageContainer{
+        /* display: grid; */
+        display: flex;
+        width: 100%;
+        margin-left: 1%;
+    }
+
 }
 

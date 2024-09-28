@@ -21,7 +21,11 @@ export default function Guardas() {
   const router = useRouter()
   const [view, setView] = useState('month')
   const [date, setDate] = useState(new Date())
+  const [optionView, setOptionView] = useState(false)
+  const [inPersonView, setInPersonView] = useState(false)
+  const [onlineView, setOnlineView] = useState(false)
   const [formView, setFormView] = useState(false)
+  const [typeClass, setTypeClass] = useState('')
   const [dateGuard, setDateGuard] = useState('')
   const [form, setForm] = useState({
     startDate:'',
@@ -68,10 +72,8 @@ export default function Guardas() {
     if(view !== e) setDate(e)
   }
 
-
-
-  const createEvent = (e)=>{
-    setFormView(!formView)
+  const createEvent = (e) => {
+    setOptionView(!optionView)
     let {start} = e
     let string = start.toString()
     let stringArray = string.split(' ')
@@ -87,7 +89,7 @@ export default function Guardas() {
   if(stringArray[4] === '00:00:00') date = {...date, hour:''} 
   else {date = {...date, hour:stringArray[4]}
     setHour(stringArray[4].split(':').slice(0,2).join(':'))}
-
+  
     console.log(date.hour)
     setForm({...form, startDate: `${date.year}-${numberMonth[date.month]}-${date.number}-${date.hour}`, amount:currentDollar*50})
     setDateGuard(date)
@@ -101,6 +103,11 @@ export default function Guardas() {
       description: '', 
       amount:''})}
   }
+
+
+
+
+  
 
   const days = {
     Sun:'Domingo',
@@ -188,6 +195,14 @@ export default function Guardas() {
     }else setForm({...form,[e.name]:e.value})
   }
 
+  const selectClass = (e) => {
+    console.log(e.target.value)
+    // setTypeClass('a ver')
+    setOnlineView(false)
+    if(e.target.value === 'online') setOnlineView(true)
+    else setInPersonView(true)
+  }
+
   return (
     <div className={style.divContainer}>
       {/* <button onClick={()=>onView()} style={{width:'10vw', height:'5vh'}}>view change</button> */}
@@ -196,6 +211,41 @@ export default function Guardas() {
     localizer={localizer} events={event} view={view} date={date} 
     onView={(e)=> onView(e)} 
     onNavigate={(e)=> onNavigate(e)} />
+
+    {
+      optionView &&
+      <div className={style.formContainer}>
+        <button value={'inPerson'} onClick={(e) =>{selectClass(e)}}>Clase presencial</button>
+        <button value={'online'} onClick={(e) =>{selectClass(e)}}>Clase online</button>
+      </div>
+    }
+
+{
+      onlineView &&
+      <div className={style.formContainer}>
+        <p>
+        ¿Qué es Lorem Ipsum?
+        Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen. No sólo sobrevivió 500 años, sino que tambien ingresó como texto de relleno en documentos electrónicos, quedando esencialmente igual al original. Fue popularizado en los 60s con la creación de las hojas "Letraset", las cuales contenian pasajes de Lorem Ipsum, y más recientemente con software de autoedición, como por ejemplo Aldus PageMaker, el cual incluye versiones de Lorem Ipsum.
+        </p>
+        <button  onClick={(e) =>{setOnlineView(false), setFormView(true)}}>Continuar</button>
+      </div>
+    }
+
+{
+      inPersonView &&
+      <div className={style.formContainer}>
+        <div className={style.pAndButton}>
+        <p className={style.p}>
+        ¿Qué es Lorem Ipsum?
+        Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen. No sólo sobrevivió 500 años, sino que tambien ingresó como texto de relleno en documentos electrónicos, quedando esencialmente igual al original. Fue popularizado en los 60s con la creación de las hojas "Letraset", las cuales contenian pasajes de Lorem Ipsum, y más recientemente con software de autoedición, como por ejemplo Aldus PageMaker, el cual incluye versiones de Lorem Ipsum.
+        </p>
+     <button  onClick={(e) =>{setInPersonView(false), setFormView(true)}}>Continuar</button>
+        </div>
+      </div>
+    }
+
+
+
     {
       formView &&
     <div className={style.formContainer}>

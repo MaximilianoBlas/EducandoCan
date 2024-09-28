@@ -6,7 +6,7 @@ import { Mogra } from 'next/font/google';
 export default function Navbar() {
   return (
     <div className={styles.mainContainer}>
-      <div className={styles.logoContainer}><img src="logoRec.webp" alt="Logo" /></div>
+      <div className={styles.logoContainer}><img className={styles.logo}  src="logoRec.webp" alt="Logo" /></div>
       <div className={styles.titleContainer}>
         <motion.div 
         whileHover={{ scale: [null, 1.5, 1.4] }}

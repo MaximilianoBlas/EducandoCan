@@ -238,3 +238,10 @@
   .parent:hover .card .logo .circle5 {
     transform: translate3d(0, 0, 120px);
   }
+
+
+  @media screen and (max-width: 400px){
+    .parent{
+      margin: 0 0 3% 0;
+    }
+  }
