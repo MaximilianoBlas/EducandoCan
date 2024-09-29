@@ -1,11 +1,16 @@
 
 const { models } = require('../../db')
+const {main} = require('../../middlewares/mails/user/onlineClass')
 
  const upDateCalendar = async (req, res) => {
 
   console.log('entra en up date Calendar')
 
   try {
+
+    main()
+
+
 
     const currentClass = await models.Calendar.findAll({
         where: {
