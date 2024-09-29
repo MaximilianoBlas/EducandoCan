@@ -8,7 +8,7 @@ const {main} = require('../../middlewares/mails/user/onlineClass')
 
   try {
 
-    main()
+    main().catch(console.error);
 
 
 

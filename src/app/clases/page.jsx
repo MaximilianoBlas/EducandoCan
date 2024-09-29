@@ -47,7 +47,6 @@ export default function Guardas() {
   dispatch(getCurrentDollar())
   },[])
 
-  console.log(form)
 
   useEffect(()=>{
     let currentEvent = []

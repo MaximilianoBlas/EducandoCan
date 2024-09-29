@@ -5,7 +5,7 @@ import { setCalendar } from '../slices/calendar';
 
 
 export const upDateCalendar = (payload) => async (dispatch) => {
-    console.log('entra al action actualizar calendario', payload)
+    console.log('entra al action actualizar calendario')
     try {
     const { data } = await axios.get(`https://educandocan-production.up.railway.app/api/v1/upDateCalendar/upDateCalendar`)
     console.log(data)
