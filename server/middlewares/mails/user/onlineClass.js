@@ -15,7 +15,7 @@ async function main() {
   // send mail with defined transport object
   const info = await transporter.sendMail({
     from: '"Hola" <silvamaxiblas@gmail.com>', // sender address
-    to: "lalala@yopmail.com", // list of receivers
+    to: "silvamaxiblas@gmail.com", // list of receivers
     subject: "Hello ✔", // Subject line
     text: "Hello world?", // plain text body
     html: "<b>Hello world?</b>", // html body
