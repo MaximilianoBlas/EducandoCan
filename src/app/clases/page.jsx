@@ -35,7 +35,8 @@ export default function Guardas() {
     email: '',
     phone: '',
     description: '', 
-    amount:''
+    amount:'',
+    type:''
   })
   const [event, setEvent] = useState([])
   const [hour, setHour] = useState('')
@@ -198,9 +199,15 @@ export default function Guardas() {
     console.log(e.target.value)
     // setTypeClass('a ver')
     setOnlineView(false)
-    if(e.target.value === 'online') setOnlineView(true)
-    else setInPersonView(true)
+    if(e.target.value === 'online') {
+      setForm({...form, type:'online'})
+      setOnlineView(true)}
+    else {
+      setForm({...form, type:'inPerson'})
+      setInPersonView(true)}
   }
+
+
 
   return (
     <div className={style.divContainer}>

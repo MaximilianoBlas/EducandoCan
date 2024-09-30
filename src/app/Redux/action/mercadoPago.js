@@ -5,7 +5,7 @@ import { setPreference } from '../slices/mercadoPago';
   export const consultarApiMercadoPago = (payload) => async (dispatch) => {
     console.log('entra al action consultar backend', payload)
     try {
-    const { data } = await axios.get(`https://educandocan-production.up.railway.app/api/v1/mercadoPago/pagar?name=${payload.clientLastname} ${payload.clientName}&amount=${payload.amount}&description=${payload.description}&email=${payload.email}&phone=${payload.phone}&startDate=${payload.startDate}&endDate=${payload.endDate}`)
+    const { data } = await axios.get(`https://educandocan-production.up.railway.app/api/v1/mercadoPago/pagar?name=${payload.clientLastname} ${payload.clientName}&amount=${payload.amount}&description=${payload.description}&email=${payload.email}&phone=${payload.phone}&startDate=${payload.startDate}&endDate=${payload.endDate}&type=${payload.type}`)
     console.log(data)
     dispatch(setPreference(data))
     } catch (error) {

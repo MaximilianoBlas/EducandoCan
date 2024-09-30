@@ -7,7 +7,7 @@ const { models } = require('../../db')
 
   console.log('entra en creación de pago')
   console.log('req.query', req.query)
-  const {name,description,email,phone,amount,startDate,endDate} = req.query
+  const {name,description,email,phone,amount,startDate,endDate,type} = req.query
   const playerName = name.split(' ').join('')
   const today = new Date()
   const milliseconds = today.getTime()
@@ -24,7 +24,7 @@ const { models } = require('../../db')
  body: {
   items: [
     {id: `Clases${playerName}${milliseconds}`,
-      title: 'Clases Educando Can',
+      title: `Clases ${type} de Educando Can`,
       description,
       quantity: 1,
       unit_price: Number(amount)

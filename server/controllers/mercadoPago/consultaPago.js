@@ -28,6 +28,8 @@ console.log('pago additional info item',pago.additional_info)
 console.log('id que viene de mercado pago', pago.additional_info.items[0].id)
 console.log('pago card cardholder',pago.card.cardholder)
 
+
+
 const currentClass = await models.Calendar.findOne({
     where: {
         paymentId: pago.additional_info.items[0].id
