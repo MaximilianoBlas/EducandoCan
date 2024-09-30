@@ -49,7 +49,6 @@ export default function Guardas() {
   dispatch(getCurrentDollar())
   },[])
 
-  console.log(calendar, 'calendar')
   useEffect(()=>{
     let currentEvent = []
         calendar.forEach(e => {
@@ -74,7 +73,10 @@ export default function Guardas() {
   }
 
   const createEvent = (e) => {
-    setOptionView(!optionView)
+    if(view === 'month') setView('day')
+      else{
+
+        setOptionView(!optionView)
     let {start} = e
     let string = start.toString()
     let stringArray = string.split(' ')
@@ -104,6 +106,9 @@ export default function Guardas() {
       description: '', 
       amount:'',
       type:'' })}
+    
+      }
+    
   }
 
 
@@ -177,12 +182,10 @@ export default function Guardas() {
   const completedForm = (e) => {
     if(form.startDate && e.type === 'time'){      
       setHour(e.value)
-      console.log('startDate', form.startDate)
       let startDate =  form.startDate.split('-')
       startDate[3] = e.value
       let newStart = startDate.join('-')
 
-      console.log('startDate', newStart)
       setForm({...form, startDate:newStart})
 
 
@@ -209,13 +212,15 @@ export default function Guardas() {
       setInPersonView(true)}
   }
 
+  console.log(view)
+
 
 
   return (
     <div className={style.divContainer}>
       {/* <button onClick={()=>onView()} style={{width:'10vw', height:'5vh'}}>view change</button> */}
    <Calendar selectable
-   onSelectSlot={(e) => {createEvent(e)}}
+   onSelectSlot={(e) => {createEvent(e)}} 
     localizer={localizer} events={event} view={view} date={date} 
     onView={(e)=> onView(e)} 
     onNavigate={(e)=> onNavigate(e)} />
