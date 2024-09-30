@@ -62,6 +62,7 @@ const { models } = require('../../db')
         description,
         startDate,
         endDate,
+        type
       })
 
          res.json(url)

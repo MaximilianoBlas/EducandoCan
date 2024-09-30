@@ -43,12 +43,13 @@ export default function Guardas() {
 
   if(preference)router.push(preference)
 
+    
     useEffect(()=>{
   dispatch(upDateCalendar())
   dispatch(getCurrentDollar())
   },[])
 
-
+  console.log(calendar, 'calendar')
   useEffect(()=>{
     let currentEvent = []
         calendar.forEach(e => {
@@ -101,7 +102,8 @@ export default function Guardas() {
       email: '',
       phone: '',
       description: '', 
-      amount:''})}
+      amount:'',
+      type:'' })}
   }
 
 

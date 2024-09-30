@@ -7,26 +7,14 @@ const {main} = require('../../middlewares/mails/user/onlineClass')
   console.log('entra en up date Calendar')
 
   try {
-
-    main().catch(console.error);
-
-
-
     const currentClass = await models.Calendar.findAll({
         where: {
-            payment: 'accepted'
-        }
-      })
-    
+            payment: 'accepted'}})
 
          res.json(currentClass)
-        } catch (error) {
-            console.log(error)
-        }
-       
-        
          
-        }
+        } catch (error) {
+            console.log(error)}}
         
  module.exports = {upDateCalendar}
 
