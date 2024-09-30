@@ -2,6 +2,10 @@
 const config = require('../../config')
 const {MercadoPagoConfig, Preference, Payment, MercadoPago} = require('mercadopago')
 const { models } = require('../../db')
+const { InPersonClassForClient } = require('../../middlewares/mails/client/inPersonClass')
+const { InPersonClassForUser } = require('../../middlewares/mails/user/inPersonClass')
+const { onlineClassForClient } = require('../../middlewares/mails/client/onlineClass')
+const { onlineClassForUser } = require('../../middlewares/mails/user/onlineClass')
 // const MercadoPago = require('mercadopago')
 
 
@@ -38,6 +42,22 @@ const currentClass = await models.Calendar.findOne({
 
   currentClass.payment = 'accepted'
   currentClass.save()
+  
+  const ClientInfo = {
+    name:currentClass.name,
+    email:currentClass.email,
+    start:currentClass.startDate,
+    type:currentClass.type
+  }
+
+
+  if(currentClass.type === 'inPerson' ){
+    InPersonClassForClient(ClientInfo)
+    InPersonClassForUser(ClientInfo)
+  } else{
+    onlineClassForClient(ClientInfo)
+    onlineClassForUser(ClientInfo)
+  }
 
 
         return pago
