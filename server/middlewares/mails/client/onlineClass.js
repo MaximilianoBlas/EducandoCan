@@ -9,15 +9,15 @@ const transporter = nodemailer.createTransport({
 });
 
 // async..await is not allowed in global scope, must use a wrapper
-async function onlineClassForClient(info) {
+async function onlineClassForClient(clientInfo) {
 
     console.log('entra a main')
   // send mail with defined transport object
   const info = await transporter.sendMail({
     from: '<silvamaxiblas@gmail.com>', // sender address
-    to: info.email, // list of receivers
+    to: clientInfo.email, // list of receivers
     subject: "Confirmación de clase online ✔", // Subject line
-    text: `Hola ${info.name}, se confirmo la clase Online de EducandoCan para el ${start} en 'tal enlace' `, // plain text body
+    text: `Hola ${clientInfo.name}, se confirmo la clase Online de EducandoCan para el ${clientInfo.start} en 'tal enlace' `, // plain text body
     html: "<b>Hello world?</b>", // html body
   });
 
