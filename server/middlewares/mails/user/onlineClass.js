@@ -18,7 +18,7 @@ async function onlineClassForUser(clientInfo) {
     to: "silvamaxiblas@gmail.com", // list of receivers
     subject: "Confirmación de clase online ✔", // Subject line
     text: `Se confirmo la clase online con ${clientInfo.name} para el ${clientInfo.start}`, // plain text body
-    html: "<b>Hello world?</b>", // html body
+    html: `Se confirmo la clase online con ${clientInfo.name} para el ${clientInfo.start}`, // html body
   });
 
   console.log("Message sent: %s", info.messageId);

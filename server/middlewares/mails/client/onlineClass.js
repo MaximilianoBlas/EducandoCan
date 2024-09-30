@@ -18,7 +18,7 @@ async function onlineClassForClient(clientInfo) {
     to: clientInfo.email, // list of receivers
     subject: "Confirmación de clase online ✔", // Subject line
     text: `Hola ${clientInfo.name}, se confirmo la clase Online de EducandoCan para el ${clientInfo.start} en 'tal enlace' `, // plain text body
-    html: "<b>Hello world?</b>", // html body
+    html: `Hola ${clientInfo.name}, se confirmo la clase Online de EducandoCan para el ${clientInfo.start} en 'tal enlace' `, // html body
   });
 
   console.log("Message sent: %s", info.messageId);
