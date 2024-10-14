@@ -3,32 +3,117 @@
     width: 95vw;
     height: 95vh;
 
+    .closeButtonContainer{
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        width: 100%;
+        margin-bottom: 2%;
+    }
+
+    .closeButton{
+        display: flex;
+    }
+
 
     .formContainer{
         position: absolute;
         display: flex;
         flex-direction: column;
-        justify-content: space-around;
+        justify-content: flex-start;
         align-items: center;
-        height: 60vh;
-        width: 50vw;
-        background-color: white;
-        border: 2px solid gray;
-        border-radius: 5%;
+        height: auto;
+        width: 40vw;
+        background-color: #F7F7F7;
+        border: 2px solid #D1D1D1;
+        border-radius: 2%;
         z-index: 99;
-        margin: -70vh 0 0 25vw;
+        padding-bottom: 2vh;
+        margin: -80vh 0 0 30vw;
+        overflow: hidden;
+        color: #333333;
+
+
+        .presentialAndOnlineButtonContainer {
+            display: flex;
+            flex-direction: row;
+
+            .presentialAndOnlineButton{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        .pAndButton{
+            display: flex;
+            flex-direction: column;
+            width: auto;
+            height: 100%;
+            align-items: center;
+            margin: 0 5%;
+
+            .p {
+                font-size: small;
+                max-height: 80%;
+                width: auto;
+                overflow: hidden; 
+                text-overflow: ellipsis
+            }
+        
+        }
+
+
+        .containerWithoutCloseButton{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: -5%;
+            
+        }
+
+        .inputTimeContainer{
+          display: flex;
+          flex-direction: column;
+          width: 90%;
+        }
 
         .inputContainer{
             display: flex;
             flex-direction: row;
             justify-content: space-around;
             width: 90%;
+
+            .input{
+                margin-bottom: 3vh;
+            }
         }
         .TextareaContainer{
             display: flex;
             flex-direction: column;
             width:80%
         }
+        .warningSignP{
+            color: red;
+            font-size: x-small;
+            margin-top: -2vh;
+        }
+
+        .button{
+            background-color:  #CCCCCC;
+            color:  #2E2E2E;
+        }
+    }
+
+    .warningSignContainer{
+        position: absolute;
+        margin: -85vh 0 0 30%;
+        width: 40%;
+        height: 20%;
+        z-index: 99;
+        background-color: white;
+        border: 2px solid brown;
+        border-radius: 15px;
     }
 }
 
