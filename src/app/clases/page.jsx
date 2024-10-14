@@ -1,11 +1,10 @@
 'use client'
+import { Children, cloneElement } from "react";
 import { useEffect, useState } from 'react';
 import style from './page.module.css';
-import {Calendar, dayjsLocalizer,momentLocalizer } from 'react-big-calendar'
+import {Calendar, dayjsLocalizer } from 'react-big-calendar'
 import 'react-big-calendar/lib/css/react-big-calendar.css'
 import dayjs from 'dayjs';
-import moment from'moment'
-import { Chela_One } from 'next/font/google';
 import { useDispatch, useSelector } from 'react-redux';
 import {consultarApiMercadoPago, webhooks} from '../Redux/action/mercadoPago'
 import { useRouter } from 'next/navigation';
@@ -14,6 +13,15 @@ import { getCurrentDollar } from '../Redux/action/currentDollar';
 import Image from 'next/image'
 import presencial from '../../../public/presencial.webp'
 import online from '../../../public/online.webp'
+
+
+const TouchCellWrapper = ({ children, value, onSelectSlot }) =>
+  cloneElement(Children.only(children), {
+    onTouchEnd: () => onSelectSlot({ action: "click", slots: [value] }),
+    style: {
+      className: `${children}`
+    }
+  });
 
 export default function Guardas() {
   const dispatch = useDispatch()
@@ -117,7 +125,9 @@ export default function Guardas() {
     if(view !== e) setDate(e)
   }
 
-  const createEvent = (e) => {
+  const createEvent = (e,event) => {
+    console.log(e)
+    console.log(event)
     if(!optionView && !inPersonView && !onlineView && !formView){
     if(view === 'month') {
       setDate(e.start)
@@ -340,15 +350,21 @@ if (!input.phone) {
 
   return (
     <div className={style.divContainer}>
-   <Calendar selectable
-   onSelectSlot={(e) => {createEvent(e)}}
+   <Calendar selectable  
+   onSelectSlot={(e,event) => {createEvent(e,event)}} 
     localizer={localizer} events={event} view={view} date={date}
     onView={(e)=> onView(e)}
-    onNavigate={(e)=> onNavigate(e)} />
+    onNavigate={(e)=> onNavigate(e)}
+    components={{
+      dateCellWrapper: (props) => (
+        <TouchCellWrapper {...props} onSelectSlot={(e) => {createEvent(e)}} />
+      )
+    }}
+     />
 
     {
       optionView &&
-      <div className={style.formContainer}>
+      <div  className={style.formContainer}>
         <div className={style.closeButtonContainer}>
         <button className={style.closeButton} onClick={() => setOptionView(false)}>X</button>
         </div>
