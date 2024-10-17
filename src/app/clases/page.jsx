@@ -15,13 +15,18 @@ import presencial from '../../../public/presencial.webp'
 import online from '../../../public/online.webp'
 
 
-const TouchCellWrapper = ({ children, value, onSelectSlot }) =>
-  cloneElement(Children.only(children), {
+const TouchCellWrapper = ({ children, value, onSelectSlot }) =>{
+
+  console.log('children', children)
+  console.log('value', value)
+  console.log('onSelectSlot', onSelectSlot)
+ return cloneElement(Children.only(children), {
     onTouchEnd: () => onSelectSlot({ action: "click", slots: [value] }),
     style: {
       className: `${children}`
     }
   });
+}
 
 export default function Guardas() {
   const dispatch = useDispatch()
@@ -125,9 +130,8 @@ export default function Guardas() {
     if(view !== e) setDate(e)
   }
 
-  const createEvent = (e,event) => {
-    console.log(e)
-    console.log(event)
+  const createEvent = (e) => {
+    console.log('el evento que entra a create event',e)
     if(!optionView && !inPersonView && !onlineView && !formView){
     if(view === 'month') {
       setDate(e.start)
@@ -351,7 +355,7 @@ if (!input.phone) {
   return (
     <div className={style.divContainer}>
    <Calendar selectable  
-   onSelectSlot={(e,event) => {createEvent(e,event)}} 
+   onSelectSlot={(e) => {createEvent(e)}} 
     localizer={localizer} events={event} view={view} date={date}
     onView={(e)=> onView(e)}
     onNavigate={(e)=> onNavigate(e)}
