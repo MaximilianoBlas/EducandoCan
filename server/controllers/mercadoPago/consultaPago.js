@@ -33,6 +33,10 @@ console.log('id que viene de mercado pago', pago.additional_info.items[0].id)
 console.log('pago card cardholder',pago.card.cardholder)
 
 
+console.log('pago',pago.date_approved)
+
+
+if(pago.date_approved){
 
 const currentClass = await models.Calendar.findOne({
     where: {
@@ -61,6 +65,7 @@ const currentClass = await models.Calendar.findOne({
 
 
         return pago
+}
         } catch (error) {
             console.log(error)
         }
