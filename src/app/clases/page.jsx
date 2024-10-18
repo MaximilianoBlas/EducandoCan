@@ -124,6 +124,8 @@ export default function Guardas() {
   }
 
   const createEvent = (e) => {
+
+    if(windowWidth > 400 || windowWidth < 401 && e.action === 'movilClick')
     console.log('el evento que entra a create event',e)
     if(!optionView && !inPersonView && !onlineView && !formView){
     if(view === 'month') {
