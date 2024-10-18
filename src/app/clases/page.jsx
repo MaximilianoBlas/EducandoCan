@@ -2,9 +2,11 @@
 import { Children, cloneElement } from "react";
 import { useEffect, useState } from 'react';
 import style from './page.module.css';
-import {Calendar, dayjsLocalizer } from 'react-big-calendar'
+import {Calendar,dateFnsLocalizer,dayjsLocalizer} from 'react-big-calendar'
 import 'react-big-calendar/lib/css/react-big-calendar.css'
 import dayjs from 'dayjs';
+import localizedFormat from 'dayjs/plugin/localizedFormat';
+import 'dayjs/locale/es';
 import { useDispatch, useSelector } from 'react-redux';
 import {consultarApiMercadoPago, webhooks} from '../Redux/action/mercadoPago'
 import { useRouter } from 'next/navigation';
@@ -55,11 +57,21 @@ export default function Guardas() {
   const [event, setEvent] = useState([])
   const [hour, setHour] = useState('')
   const {windowWidth} = useSelector((state) => state.windowWidth)
+  dayjs.extend(localizedFormat); // Para formatear las fechas
+  dayjs.locale('es'); // Cambiar el idioma a español
+  const localizer = dayjsLocalizer(dayjs)
+
+  // const dayjsLocalizer = dateFnsLocalizer({
+  //   format: (date, format) => dayjs(date).format(format),
+  //   parse: (value, format) => dayjs(value, format).toDate(),
+  //   startOfWeek: () => dayjs().startOf('week').toDate(),
+  //   getDay: (date) => dayjs(date).day(),
+  //   locales: {
+  //     es: dayjs.locale('es'),
+  //   },
+  // });
 
   if(preference)router.push(preference)
-
-    console.log(form)
-
 
     useEffect(()=>{
   dispatch(upDateCalendar())
@@ -113,7 +125,7 @@ export default function Guardas() {
     }
   
 
-  const localizer = dayjsLocalizer(dayjs)
+
 
   const onView = (e) =>{
    if(view !== e) setView(e)
@@ -124,9 +136,7 @@ export default function Guardas() {
   }
 
   const createEvent = (e) => {
-
     if(windowWidth > 400 || windowWidth < 401 && e.action === 'movilClick')
-    console.log('el evento que entra a create event',e)
     if(!optionView && !inPersonView && !onlineView && !formView){
     if(view === 'month') {
       setDate(e.start)
@@ -282,7 +292,8 @@ export default function Guardas() {
 
   const selectClass = (e) => {
     setOptionView(false)
-    if(e.target.value === 'online') {
+    console.log('aca esta el tipo de clase', e)
+    if(e.target.alt === 'online') {
       setForm({...form, type:'online'})
       setOnlineView(true)}
     else {
@@ -361,7 +372,24 @@ if (!input.phone) {
      }
   }
 
-  console.log(windowWidth)
+
+  const messages = {
+    allDay: 'Todo el día',
+    previous: 'Anterior',
+    next: 'Siguiente',
+    today: 'Hoy',
+    month: 'Mes',
+    week: 'Semana',
+    day: 'Día',
+    agenda: 'Agenda',
+    date: 'Fecha',
+    time: 'Hora',
+    event: 'Evento',
+    noEventsInRange: 'No hay eventos en este rango',
+    showMore: total => `+ Ver más (${total})`,
+  };
+
+  console.log(form)
 
 
   return (
@@ -372,6 +400,7 @@ if (!input.phone) {
     localizer={localizer} events={event} view={view} date={date}
     onView={(e)=> onView(e)}
     onNavigate={(e)=> onNavigate(e)}
+    messages={messages}
    components={{
       dateCellWrapper: (props) => (
         <TouchCellWrapper {...props} onSelectSlot={createEvent} />
@@ -384,6 +413,7 @@ if (!input.phone) {
        localizer={localizer} events={event} view={view} date={date}
        onView={(e)=> onView(e)}
        onNavigate={(e)=> onNavigate(e)}
+       messages={messages}
         />
 
      }
@@ -400,20 +430,20 @@ if (!input.phone) {
 
         <div className={style.presentialAndOnlineButton}>
         <button className={style.button} value={'inPerson'} onClick={(e) =>{selectClass(e)}}>
-        <Image src={presencial} style={{
+        <Image  src={presencial} style={{
           width: '83%',
           height: 'auto',
-        }} alt='foto'></Image> 
+        }} alt='inPerson'></Image> 
           </button>
           <p>Clase presencial</p>
         </div>
       
       <div className={style.presentialAndOnlineButton}>
         <button className={style.button} value={'online'} onClick={(e) =>{selectClass(e)}}>
-        <Image src={online} style={{
+        <Image  src={online} style={{
           width: '100%',
           height: 'auto',
-        }} alt='foto'></Image></button>
+        }} alt='online'></Image></button>
           <p> Clase online</p>
       </div>
           </div>
