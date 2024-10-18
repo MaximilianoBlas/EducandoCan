@@ -13,20 +13,10 @@ import { getCurrentDollar } from '../Redux/action/currentDollar';
 import Image from 'next/image'
 import presencial from '../../../public/presencial.webp'
 import online from '../../../public/online.webp'
+import { getWindowWidth } from "../Redux/action/windowWidth";
 
 
-const TouchCellWrapper = ({ children, value, onSelectSlot }) =>{
 
-  console.log('children', children)
-  console.log('value', value)
-  console.log('onSelectSlot', onSelectSlot)
- return cloneElement(Children.only(children), {
-    onTouchEnd: () => onSelectSlot({ action: "click", slots: [value] }),
-    style: {
-      className: `${children}`
-    }
-  });
-}
 
 export default function Guardas() {
   const dispatch = useDispatch()
@@ -64,8 +54,11 @@ export default function Guardas() {
   })
   const [event, setEvent] = useState([])
   const [hour, setHour] = useState('')
+  const {windowWidth} = useSelector((state) => state.windowWidth)
 
   if(preference)router.push(preference)
+
+    console.log(form)
 
 
     useEffect(()=>{
@@ -248,7 +241,7 @@ export default function Guardas() {
   
 
   const completedForm = (e) => {
-  
+ 
     if(form.startDate && e.type === 'time'){
       setHour(e.value)
       let startDate =  form.startDate.split('-')
@@ -273,10 +266,12 @@ export default function Guardas() {
       let newHour = startDate[3]
       let [hour,minute] = newHour.split(':')
 
-      let end = hourAfterClass(hour, minute)
+      let after = hourAfterClass(hour, minute)
+
+
 
        startDate =  form.startDate.split('-')
-      startDate[3] = end
+      startDate[3] = after.endClass
       let newEnd = startDate.join('-')
       
       setErrors(validate({...form, [e.name]: e.value}))
@@ -351,20 +346,46 @@ if (!input.phone) {
      setInPersonView(false)
   }
 
+  let TouchCellWrapper
+
+  if(windowWidth < 401) {
+     TouchCellWrapper = ({ children, value, onSelectSlot }) =>{
+      return cloneElement(Children.only(children), {
+         onTouchEnd: () => onSelectSlot({ action: "movilClick", start: [value] }),
+         style: {
+           className: `${children}`
+         }
+       });
+     }
+  }
+
+  console.log(windowWidth)
+
 
   return (
     <div className={style.divContainer}>
-   <Calendar selectable  
-   onSelectSlot={(e) => {createEvent(e)}} 
+
+      {windowWidth < 401 && <Calendar selectable  
+   onSelectSlot={createEvent} 
     localizer={localizer} events={event} view={view} date={date}
     onView={(e)=> onView(e)}
     onNavigate={(e)=> onNavigate(e)}
-    components={{
+   components={{
       dateCellWrapper: (props) => (
-        <TouchCellWrapper {...props} onSelectSlot={(e) => {createEvent(e)}} />
+        <TouchCellWrapper {...props} onSelectSlot={createEvent} />
       )
     }}
-     />
+     /> }
+     { windowWidth > 400 &&
+      <Calendar selectable  
+      onSelectSlot={(e) => createEvent(e)} 
+       localizer={localizer} events={event} view={view} date={date}
+       onView={(e)=> onView(e)}
+       onNavigate={(e)=> onNavigate(e)}
+        />
+
+     }
+   
 
     {
       optionView &&

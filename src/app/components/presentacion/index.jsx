@@ -7,8 +7,6 @@ import { useSelector } from 'react-redux';
 
 export default function Presentacion() {
 const {windowWidth} = useSelector((state) => state.windowWidth)
-console.log(windowWidth < 401)
-console.log(windowWidth)
 
   return (
 
