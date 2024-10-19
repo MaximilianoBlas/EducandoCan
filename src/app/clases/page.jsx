@@ -136,12 +136,17 @@ export default function Guardas() {
   }
 
   const createEvent = (e) => {
-    if(windowWidth > 400 || windowWidth < 401 && e.action === 'movilClick')
+
+    console.log('entro a creat event')
+    console.log(e)
+
+    // if(windowWidth > 400 || windowWidth < 401 && e.action === 'movilClick')
     if(!optionView && !inPersonView && !onlineView && !formView){
     if(view === 'month') {
       setDate(e.start)
       setView('day')}
       else{
+        console.log('entra a donde tiene que entrar')
         setOptionView(true)
     let {start} = e
     let string = start.toString()
