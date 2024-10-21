@@ -16,8 +16,8 @@ exit={{ opacity: 0 }}
   viewport={{ once: true }}
 ></motion.div>
       <Card servicio='Clases' enlace='/clases'/>
-      <Card servicio='Rehabilitación' enlace='/rehabilitacion'/>
-      <Card servicio='Academia' enlace='/academia'/>
+      {/* <Card servicio='Rehabilitación' enlace='/rehabilitacion'/> */}
+      <Card servicio='comunidad' enlace='/comunidad'/>
     </div>
   )
 }

@@ -1,0 +1,167 @@
+
+.divContainer{
+    width: 95vw;
+    height: 95vh;
+
+    .closeButtonContainer{
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        width: 100%;
+        margin-bottom: 2%;
+    }
+
+    .closeButton{
+        display: flex;
+    }
+
+
+    .formContainer{
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        height: auto;
+        width: 40vw;
+        background-color: #F7F7F7;
+        border: 2px solid #D1D1D1;
+        border-radius: 2%;
+        z-index: 99;
+        padding-bottom: 2vh;
+        margin: -80vh 0 0 30vw;
+        overflow: hidden;
+        color: #333333;
+
+
+        .presentialAndOnlineButtonContainer {
+            display: flex;
+            flex-direction: row;
+
+            .presentialAndOnlineButton{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        .pAndButton{
+            display: flex;
+            flex-direction: column;
+            width: auto;
+            height: 100%;
+            align-items: center;
+            margin: 0 5%;
+
+            .p {
+                font-size: small;
+                max-height: 80%;
+                width: auto;
+                overflow: hidden; 
+                text-overflow: ellipsis
+            }
+        
+        }
+
+
+        .containerWithoutCloseButton{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: -5%;
+            
+        }
+
+        .inputTimeContainer{
+          display: flex;
+          flex-direction: column;
+          width: 90%;
+        }
+
+        .inputContainer{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            width: 90%;
+        }
+        .TextareaContainer{
+            display: flex;
+            flex-direction: column;
+            width:80%
+        }
+
+        .button{
+            background-color:  #CCCCCC;
+            color:  #2E2E2E;
+        }
+    }
+}
+
+
+@media screen and (max-width: 400px){
+
+    .divContainer{
+        font-size: auto;
+        width: 95vw;
+        height: 95vh;
+
+        .pAndButton{
+            display: flex;
+            flex-direction: column;
+            width: auto;
+            height: 100%;
+            align-items: center;
+            margin: 0 5%;
+
+            .p {
+                font-size: small;
+                max-height: 80%;
+                width: auto;
+                overflow: hidden; 
+                text-overflow: ellipsis
+            }
+        
+        }
+
+    
+        .formContainer{
+            font-size: small;
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+            height: auto;
+            width: 70vw;
+            background-color: #F7F7F7;
+            border: 2px solid #D1D1D1;
+            border-radius: 5%;
+            z-index: 99;
+            margin: -80vh 0 0 12vw;
+
+            .presentialAndOnlineButtonContainer {
+                display: flex;
+                flex-direction: column;
+    
+                .presentialAndOnlineButton{
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                }
+            }
+    
+            .inputContainer{
+                display: flex;
+                flex-direction: column;
+                justify-content: space-around;
+                width: 90%;
+            }
+            .TextareaContainer{
+                display: flex;
+                flex-direction: column;
+                width:80%
+            }
+        }
+    }
+
+}

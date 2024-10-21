@@ -2,25 +2,24 @@
 import { Children, cloneElement } from "react";
 import { useEffect, useState } from 'react';
 import style from './page.module.css';
-import {Calendar,dateFnsLocalizer,dayjsLocalizer} from 'react-big-calendar'
+import {Calendar,dayjsLocalizer} from 'react-big-calendar'
 import 'react-big-calendar/lib/css/react-big-calendar.css'
 import dayjs from 'dayjs';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
 import 'dayjs/locale/es';
 import { useDispatch, useSelector } from 'react-redux';
-import {consultarApiMercadoPago, webhooks} from '../Redux/action/mercadoPago'
+import {consultarApiMercadoPago} from '../Redux/action/mercadoPago'
 import { useRouter } from 'next/navigation';
 import { upDateCalendar } from '../Redux/action/calendar';
 import { getCurrentDollar } from '../Redux/action/currentDollar';
 import Image from 'next/image'
 import presencial from '../../../public/presencial.webp'
 import online from '../../../public/online.webp'
-import { getWindowWidth } from "../Redux/action/windowWidth";
 
 
 
 
-export default function Guardas() {
+export default function Clases() {
   const dispatch = useDispatch()
   const {preference} = useSelector((state) => state.mercadoPago)
   const {calendar} = useSelector((state) => state.calendar)
