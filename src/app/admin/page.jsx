@@ -29,6 +29,35 @@ export default function Admin() {
   const localizer = dayjsLocalizer(dayjs)
 
 
+  const days = {
+    Sun:'Domingo',
+    Mon:'Lunes',
+    Tue:'Martes',
+    Wed:'Miercoles',
+    Thu:'Jueves',
+    Fri:'Viernes',
+    Sat:'Sabado'
+  }
+
+  const months = {
+    Jan: 'Enero',
+    Feb: 'Febrero',
+    Mar: 'Marzo',
+    Apr: 'Abril',
+    May: 'Mayo',
+    Jun: 'Junio',
+    Jul: 'Julio',
+    Aug: 'Agosto',
+    Sep: 'Septiembre',
+    Oct: 'Octubre',
+    Nov: 'Noviembre',
+    Dec: 'Diciembre'
+  }
+
+
+
+
+
   if(preference)router.push(preference)
 
     useEffect(()=>{
@@ -109,10 +138,24 @@ export default function Admin() {
 
 
   const openEvent = (e)=>{
-    console.log(e)
-    setEventSaved(e)
+    // console.log(e.start.value)
+    let {startDate} = e
+    let startHour = startDate.split('-').pop().split(':').slice(0,2).join(':') + 'hs a '
+    let {endDate}  = e
+    let endHour = endDate.split('-').pop() + 'hs'
+
+    let day = e.start.toDateString()
+    let arrayDay = day.split(' ')
+    console.log(arrayDay)
+    let dia = `${days[arrayDay[0]]} ${arrayDay[2]} de ${months[arrayDay[1]]} del ${arrayDay[3]} de `
+
+    console.log(dia)
+    setEventSaved({...e, startClass: dia + startHour + endHour})
     setEventView(true)
   }
+
+
+ 
 
   return (
     <div className={style.divContainer}>
@@ -150,36 +193,33 @@ export default function Admin() {
         <div className={style.containerWithoutCloseButton}>
 
       <h2>Clase Agendada</h2>
-      <div className={style.inputTimeContainer}>
+      {/* <div className={style.inputTimeContainer}> */}
       <div className={style.inputContainer}>
       <div>
-      <h4 >{`Inicio de clase: ${eventSaved.startDate}`}</h4>
+      <h5 >{`Clase: ${eventSaved.startClass}`}</h5>
+      <h5></h5>
       </div>
-      <div>
-      <h4 >{`Fin de clase: ${eventSaved.endDate}`}</h4>
-        </div>
+      {/* <div>
+      <h5 >{`Fin de clase: ${eventSaved.endClass}`}</h5>
+        </div> */}
       </div>
-      </div>
+      {/* </div> */}
       <div className={style.inputContainer}>
-      <div>
-      <h4 >{`Nombre: ${eventSaved.name}`}</h4>
-      </div>
-      <div>
-      <h4 >{``}</h4>
-        </div>
+      <h5 >{`Nombre: ${eventSaved.name}`}</h5>
+      <h5>Tipo de clase: {eventSaved.type === 'inPerson'? 'Presencial':'Online'}</h5>
       </div>
 <div className={style.inputContainer}>
         <div >
-      <h4 >{`Email: ${eventSaved.email}`}</h4>
+      <h5 >{`Email: ${eventSaved.email}`}</h5>
         </div>
         <div>
-      <h4 >{eventSaved.phone}</h4>
+      <h5 >Celular: {eventSaved.phone}</h5>
         </div>
 </div>
         <div className={style.TextareaContainer}>
-      <h4>{`Descripción: ${eventSaved.description}`}</h4>
+      <h5>{`Descripción: ${eventSaved.description}`}</h5>
         </div>
-        <h4>Tipo de clase {eventSaved.type}</h4>
+        
         </div>
     </div>
     }
