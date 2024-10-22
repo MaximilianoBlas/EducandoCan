@@ -59,6 +59,7 @@ const { models } = require('../../db')
         paymentId: `Clases${playerName}${milliseconds}`,
         name,
         email, 
+        phone,
         description,
         startDate,
         endDate,
