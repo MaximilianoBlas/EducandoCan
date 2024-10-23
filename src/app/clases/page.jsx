@@ -188,11 +188,6 @@ export default function Clases() {
     }
   }
 
-
-
-
-
-
   const days = {
     Sun:'Domingo',
     Mon:'Lunes',
@@ -404,7 +399,9 @@ if (!input.phone) {
     localizer={localizer} events={event} view={view} date={date}
     onView={(e)=> onView(e)}
     onNavigate={(e)=> onNavigate(e)}
-    messages={messages}
+    excludedDays={[0, 6]}  
+    min={new Date(2024, 10, 18, 9, 0)}  
+      max={new Date(2024, 10, 18, 19, 0)} 
    components={{
       dateCellWrapper: (props) => (
         <TouchCellWrapper {...props} onSelectSlot={createEvent} />
@@ -417,6 +414,9 @@ if (!input.phone) {
        localizer={localizer} events={event} view={view} date={date}
        onView={(e)=> onView(e)}
        onNavigate={(e)=> onNavigate(e)}
+       excludedDays={[0, 6]}
+       min={new Date(2024, 10, 18, 9, 0)}  
+      max={new Date(2024, 10, 18, 19, 0)} 
        messages={messages}
         />
 

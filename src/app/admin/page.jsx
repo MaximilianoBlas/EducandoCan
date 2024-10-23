@@ -9,7 +9,7 @@ import localizedFormat from 'dayjs/plugin/localizedFormat';
 import 'dayjs/locale/es';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
-import { upDateCalendar } from '../Redux/action/calendar';
+import { setBusyTime, upDateCalendar } from '../Redux/action/calendar';
 import { getCurrentDollar } from '../Redux/action/currentDollar';
 
 
@@ -101,10 +101,15 @@ export default function Admin() {
   }
 
   const createEvent = (e) => {
-    if(view === 'month') {
+
+    if(view === 'month' && e.start.getDay() !== 0 && e.start.getDay() !== 6) {
       setDate(e.start)
       setView('day')}
+      else if(e.start.getDay() !== 0 && e.start.getDay() !== 6){
+        dispatch(setBusyTime(e.start))
+      }
   }
+
 
   let TouchCellWrapper
 
@@ -138,7 +143,6 @@ export default function Admin() {
 
 
   const openEvent = (e)=>{
-    // console.log(e.start.value)
     let {startDate} = e
     let startHour = startDate.split('-').pop().split(':').slice(0,2).join(':') + 'hs a '
     let {endDate}  = e
@@ -146,14 +150,36 @@ export default function Admin() {
 
     let day = e.start.toDateString()
     let arrayDay = day.split(' ')
-    console.log(arrayDay)
     let dia = `${days[arrayDay[0]]} ${arrayDay[2]} de ${months[arrayDay[1]]} del ${arrayDay[3]} de `
 
-    console.log(dia)
     setEventSaved({...e, startClass: dia + startHour + endHour})
     setEventView(true)
   }
 
+
+  const slotPropGetter = (date) => {
+    const disabledDates = [new Date(2024, 9, 21, 14), new Date(2024, 9, 21, 15)];  // Fechas deshabilitadas
+    
+    if (date && disabledDates.some(d => d.toDateString() === date.toDateString() && d.getHours() === date.getHours() && d.getMinutes() === date.getMinutes() ) ){
+      return {
+        style: {
+          backgroundColor: '#f0f0f0',
+          pointerEvents: 'none', 
+        }
+      };
+    }
+    return {};
+  }
+
+  const dayPropGetter = (date) => {
+    const day = date.getDay();
+    if (day === 0 || day === 6) { // 0 = Domingo, 6 = Sábado
+      return {
+        className: style.weekendCell
+      };
+    }
+    return {};
+  };
 
  
 
@@ -161,13 +187,18 @@ export default function Admin() {
     <div className={style.divContainer}>
 
       {windowWidth < 401 && <Calendar selectable  
-   onSelectSlot={createEvent} 
-   onSelectEvent={e => openEvent(e)}
+    onSelectSlot={createEvent} 
+    onSelectEvent={e => openEvent(e)}
     localizer={localizer} events={event} view={view} date={date}
     onView={(e)=> onView(e)}
     onNavigate={(e)=> onNavigate(e)}
+    excludedDays={[0, 6]}
+    min={new Date(2024, 10, 18, 9, 0)} 
+    max={new Date(2024, 10, 18, 19, 0)} 
+    slotPropGetter={slotPropGetter}
+    dayPropGetter={dayPropGetter}
     messages={messages}
-   components={{
+    components={{
       dateCellWrapper: (props) => (
         <TouchCellWrapper {...props} onSelectSlot={createEvent} />
       )
@@ -180,6 +211,11 @@ export default function Admin() {
        localizer={localizer} events={event} view={view} date={date}
        onView={(e)=> onView(e)}
        onNavigate={(e)=> onNavigate(e)}
+       excludedDays={[0, 6]}
+    min={new Date(2024, 10, 18, 9, 0)}  
+      max={new Date(2024, 10, 18, 19, 0)} 
+      slotPropGetter={slotPropGetter}
+      dayPropGetter={dayPropGetter}
        messages={messages}
         />
      }
