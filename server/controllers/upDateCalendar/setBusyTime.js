@@ -6,7 +6,7 @@ const { models } = require('../../db')
   console.log('entra al controlador busy time')
 
   try {
-    const busyTime = await models.BusyTime.findOne()
+    const busyTime = await models.BusyTime.findAll()
 
     if(busyTime){
 
