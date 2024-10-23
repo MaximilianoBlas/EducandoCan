@@ -20,26 +20,26 @@ app.use(express.json())
 // // parece que esto hace el parse
 
 app.use(express.urlencoded({extended:true}))
-app.use(cors())
+// app.use(cors())
 
 
-app.use((req, res, next) => {
-    res.header(
-        "Access-Control-Request-Methods",
-        " POST"
-    );
-    res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
-    res.header("Access-Control-Allow-Credentials", "true");
-    res.header(
-        "Access-Control-Allow-Headers",
-        "Origin, X-Requested-With, Content-Type, Accept"
-    );
-    res.header(
-        "Access-Control-Allow-Methods",
-        "GET, POST, OPTIONS, PUT, DELETE"
-    );
-    next();
-});
+// app.use((req, res, next) => {
+//     res.header(
+//         "Access-Control-Request-Methods",
+//         " POST"
+//     );
+//     res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
+//     res.header("Access-Control-Allow-Credentials", "true");
+//     res.header(
+//         "Access-Control-Allow-Headers",
+//         "Origin, X-Requested-With, Content-Type, Accept"
+//     );
+//     res.header(
+//         "Access-Control-Allow-Methods",
+//         "GET, POST, OPTIONS, PUT, DELETE"
+//     );
+//     next();
+// });
 
 // app.use((req, res, next) => {
 //     res.setHeader('Access-Control-Allow-Origin','*')
@@ -63,6 +63,12 @@ app.use((req, res, next) => {
 //     methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos permitidos
 //     credentials: true, // Habilita el envío de cookies o credenciales
 // }))
+
+app.use(cors({
+    origin: 'http://localhost:3000'|| 'https://educando-can.vercel.app/', // Aquí puedes especificar el dominio que permites
+    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos que permites
+    credentials: true, // Si necesitas enviar cookies o autenticación
+}));
 
 app.use('/api/v1', routerApi)
 
