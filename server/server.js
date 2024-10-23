@@ -23,7 +23,7 @@ app.use(express.urlencoded({extended:true}))
 app.use(cors())
 
 
-server.use((req, res, next) => {
+app.use((req, res, next) => {
     res.header(
         "Access-Control-Request-Methods",
         " POST"
