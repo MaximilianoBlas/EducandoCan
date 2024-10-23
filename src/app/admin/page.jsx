@@ -9,7 +9,7 @@ import localizedFormat from 'dayjs/plugin/localizedFormat';
 import 'dayjs/locale/es';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
-import { setBusyTime, upDateCalendar } from '../Redux/action/calendar';
+import { getBusyTime, setBusyTime, upDateCalendar } from '../Redux/action/calendar';
 import { getCurrentDollar } from '../Redux/action/currentDollar';
 
 
@@ -107,6 +107,7 @@ export default function Admin() {
       setView('day')}
       else if(e.start.getDay() !== 0 && e.start.getDay() !== 6){
         dispatch(setBusyTime(e.start))
+        dispatch(getBusyTime())
       }
   }
 

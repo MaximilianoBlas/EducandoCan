@@ -6,7 +6,7 @@ const { getBusyTime } = require("../../controllers/upDateCalendar/getBusyTime")
 const { setBusyTime } = require("../../controllers/upDateCalendar/setBusyTime")
 
 ruoterUpDateCalendar.get('/upDateCalendar', upDateCalendar)
-ruoterUpDateCalendar.get('/upDateCalendar', getBusyTime)
-ruoterUpDateCalendar.post('/upDateCalendar', setBusyTime)
+ruoterUpDateCalendar.get('/getBusyTime', getBusyTime)
+ruoterUpDateCalendar.post('/setBusyTime', setBusyTime)
 
 module.exports = ruoterUpDateCalendar
