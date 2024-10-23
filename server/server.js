@@ -20,6 +20,26 @@ app.use(express.json())
 // // parece que esto hace el parse
 
 app.use(express.urlencoded({extended:true}))
+app.use(cors())
+
+
+server.use((req, res, next) => {
+    res.header(
+        "Access-Control-Request-Methods",
+        " POST"
+    );
+    res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
+    res.header("Access-Control-Allow-Credentials", "true");
+    res.header(
+        "Access-Control-Allow-Headers",
+        "Origin, X-Requested-With, Content-Type, Accept"
+    );
+    res.header(
+        "Access-Control-Allow-Methods",
+        "GET, POST, OPTIONS, PUT, DELETE"
+    );
+    next();
+});
 
 // app.use((req, res, next) => {
 //     res.setHeader('Access-Control-Allow-Origin','*')
@@ -27,22 +47,22 @@ app.use(express.urlencoded({extended:true}))
 //     next()
 // })
 
-const allowedOrigins = ['http://localhost:3000', 'https://tudominio.com', 'https://otrodominio.com'];
+// const allowedOrigins = ['http://localhost:3000', 'https://tudominio.com', 'https://otrodominio.com'];
 
-app.use(cors({
-    origin: function (origin, callback) {
-        // Permitir solicitudes sin origen (como las de Postman o cURL)
-        if (!origin) return callback(null, true);
-        // Verificar si el origen está en la lista de permitidos
-        if (allowedOrigins.indexOf(origin) === -1) {
-            const msg = 'El dominio no está autorizado por CORS.';
-            return callback(new Error(msg), false);
-        }
-        return callback(null, true);
-    },
-    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos permitidos
-    credentials: true, // Habilita el envío de cookies o credenciales
-}))
+// app.use(cors({
+//     origin: function (origin, callback) {
+//         // Permitir solicitudes sin origen (como las de Postman o cURL)
+//         if (!origin) return callback(null, true);
+//         // Verificar si el origen está en la lista de permitidos
+//         if (allowedOrigins.indexOf(origin) === -1) {
+//             const msg = 'El dominio no está autorizado por CORS.';
+//             return callback(new Error(msg), false);
+//         }
+//         return callback(null, true);
+//     },
+//     methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos permitidos
+//     credentials: true, // Habilita el envío de cookies o credenciales
+// }))
 
 app.use('/api/v1', routerApi)
 
