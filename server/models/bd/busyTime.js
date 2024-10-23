@@ -13,7 +13,7 @@ const sequelize = new Sequelize(
 module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define(
-    "busyTime",
+    "BusyTime",
     {
       id: {
         type: DataTypes.UUID,
