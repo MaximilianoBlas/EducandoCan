@@ -21,15 +21,28 @@ app.use(express.json())
 
 app.use(express.urlencoded({extended:true}))
 
-app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin','*')
-    res.setHeader('Access-Control-Allow-Methods','GET','POST','PUT','DELETE' )
-    next()
-})
+// app.use((req, res, next) => {
+//     res.setHeader('Access-Control-Allow-Origin','*')
+//     res.setHeader('Access-Control-Allow-Methods','GET','POST','PUT','DELETE' )
+//     next()
+// })
 
+const allowedOrigins = ['http://localhost:3000', 'https://tudominio.com', 'https://otrodominio.com'];
 
-
-app.use(cors())
+app.use(cors({
+    origin: function (origin, callback) {
+        // Permitir solicitudes sin origen (como las de Postman o cURL)
+        if (!origin) return callback(null, true);
+        // Verificar si el origen está en la lista de permitidos
+        if (allowedOrigins.indexOf(origin) === -1) {
+            const msg = 'El dominio no está autorizado por CORS.';
+            return callback(new Error(msg), false);
+        }
+        return callback(null, true);
+    },
+    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos permitidos
+    credentials: true, // Habilita el envío de cookies o credenciales
+}))
 
 app.use('/api/v1', routerApi)
 
