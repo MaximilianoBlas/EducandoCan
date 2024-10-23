@@ -21,7 +21,7 @@ module.exports = (sequelize) => {
         primaryKey: true,
       },
       busyTime: {
-        type: DataTypes.ARRAY,
+        type: DataTypes.JSON,
         allowNull: false,
       },
     },
