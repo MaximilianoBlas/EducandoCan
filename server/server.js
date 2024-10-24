@@ -23,7 +23,7 @@ app.use(express.urlencoded({extended:true}))
 // app.use(cors())
 
 app.use(cors({
-    origin: 'http://localhost:3000', // Aquí puedes especificar el dominio que permites
+    origin: 'http://localhost:3000' || 'https://educando-can.vercel.app', // Aquí puedes especificar el dominio que permites
     methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos que permites
     credentials: true, // Si necesitas enviar cookies o autenticación
 }));
