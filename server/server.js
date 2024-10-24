@@ -22,6 +22,12 @@ app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 // app.use(cors())
 
+app.use(cors({
+    origin: 'http://localhost:3000', // Aquí puedes especificar el dominio que permites
+    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos que permites
+    credentials: true, // Si necesitas enviar cookies o autenticación
+}));
+
 
 app.use((req, res, next) => {
     res.header(
@@ -64,11 +70,7 @@ app.use((req, res, next) => {
 //     credentials: true, // Habilita el envío de cookies o credenciales
 // }))
 
-app.use(cors({
-    origin: 'http://localhost:3000', // Aquí puedes especificar el dominio que permites
-    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos que permites
-    credentials: true, // Si necesitas enviar cookies o autenticación
-}));
+
 
 app.use('/api/v1', routerApi)
 
