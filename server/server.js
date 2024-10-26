@@ -15,11 +15,10 @@ sequelize.sync()
 //   .catch((error) => {
 //     console.error('Error syncing database:', error);
 //   });
-app.use(express.json())
 // // IMPORTANTE APLICAR CUANDO FUNCIONE LA BASE DE DATOS
 // // parece que esto hace el parse
 
-app.use(express.urlencoded({extended:true}))
+
 // app.use(cors())
 
 // app.use(cors({
@@ -76,7 +75,8 @@ app.use((req, res, next) => {
 
 
 
-
+app.use(express.json())
+app.use(express.urlencoded({extended:true}))
 
 app.use('/api/v1', routerApi)
 

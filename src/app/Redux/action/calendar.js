@@ -20,7 +20,9 @@ export const upDateCalendar = (payload) => async (dispatch) => {
   export const setBusyTime = (payload) => async (dispatch) => {
     console.log('entra al action set busy time')
     try {
-    const { data } = await axios.post(`https://educandocan-production.up.railway.app/api/v1/upDateCalendar/setBusyTime`, payload)
+    const { data } = await axios.post(`https://educandocan-production.up.railway.app/api/v1/upDateCalendar/setBusyTime`, payload,{
+      withCredentials: true // Si es necesario
+  })
     console.log(data)
 
     } catch (error) {
