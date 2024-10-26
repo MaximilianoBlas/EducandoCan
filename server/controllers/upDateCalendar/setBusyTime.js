@@ -14,9 +14,9 @@ const { models } = require('../../db')
 
     if(busyTime.length > 0){
         console.log('tiene algo')
-        // busyTime.dataValues.busyTime = [...busyTime.dataValues.busyTime, req.body]
+        busyTime[0].busyTime = [... busyTime[0].busyTime, req.body]
 
-        // busyTime.save()
+        busyTime.save()
     }
     else{
         await models.BusyTime.create({
