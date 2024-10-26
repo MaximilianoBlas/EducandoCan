@@ -4,7 +4,7 @@ const { models } = require('../../db')
  const setBusyTime = async (req, res) => {
 
   console.log('entra al controlador busy time')
-  console.log('esto es query',req.query)
+  console.log('esto es query',req)
   console.log('esto es param', req.param)
 
   try {
@@ -12,8 +12,8 @@ const { models } = require('../../db')
 
     console.log('esto es el resultado de la bd', busyTime)
 
-    if(busyTime){
-
+    if(busyTime.length > 0){
+        console.log('tiene algo')
     }
     else{
         await models.BusyTime.create({
