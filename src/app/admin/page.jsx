@@ -106,7 +106,8 @@ export default function Admin() {
       setDate(e.start)
       setView('day')}
       else if(e.start.getDay() !== 0 && e.start.getDay() !== 6){
-        dispatch(setBusyTime(e.start))
+        console.log({...[e.start]})
+        dispatch(setBusyTime({...[e.start]}))
       }
   }
 
