@@ -10,11 +10,11 @@ const { models } = require('../../db')
   try {
     const busyTime = await models.BusyTime.findAll()
 
-    console.log('esto es el resultado de la bd', busyTime.busyTime)
+    console.log('esto es el resultado de la bd', busyTime.dataValues.busyTime)
 
     if(busyTime.length > 0){
         console.log('tiene algo')
-        busyTime.busyTime = [...busyTime.busyTime, req.body]
+        busyTime.dataValues.busyTime = [...busyTime.dataValues.busyTime, req.body]
 
         busyTime.save()
     }
