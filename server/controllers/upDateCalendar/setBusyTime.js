@@ -16,7 +16,7 @@ const { models } = require('../../db')
         console.log('tiene algo')
         busyTime[0].busyTime = [... busyTime[0].busyTime, req.body]
 
-        busyTime.save()
+        busyTime[0].save()
     }
     else{
         await models.BusyTime.create({
