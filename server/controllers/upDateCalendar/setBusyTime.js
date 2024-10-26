@@ -10,7 +10,7 @@ const { models } = require('../../db')
   try {
     const busyTime = await models.BusyTime.findAll()
 
-    console.log('esto es el resultado de la bd', busyTime.dataValues)
+    console.log('esto es el resultado de la bd',busyTime, busyTime.busyTime)
 
     if(busyTime.length > 0){
         console.log('tiene algo')
