@@ -4,8 +4,8 @@ const { models } = require('../../db')
  const setBusyTime = async (req, res) => {
 
   console.log('entra al controlador busy time')
-  console.log('esto es query',req)
-  console.log('esto es param', req.param)
+  console.log('esto es query',req.body)
+//   console.log('esto es param', req.param)
 
   try {
     const busyTime = await models.BusyTime.findAll()
