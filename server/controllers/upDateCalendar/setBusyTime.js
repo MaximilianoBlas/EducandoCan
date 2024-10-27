@@ -15,6 +15,8 @@ const { models } = require('../../db')
         if(find){
          const filter = busyTime[0].busyTime.filter(e => e.date !== req.body.date || e.hour !== req.body.hour || e.minute !== req.body.minute)
          console.log('esto es filter', filter)
+            busyTime[0].busyTime = filter
+            busyTime[0].save()
         } else {
             busyTime[0].busyTime = [... busyTime[0].busyTime, req.body]
             busyTime[0].save()
