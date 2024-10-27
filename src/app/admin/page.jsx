@@ -17,13 +17,16 @@ export default function Admin() {
   const dispatch = useDispatch()
   const {preference} = useSelector((state) => state.mercadoPago)
   const {calendar} = useSelector((state) => state.calendar)
+  const {windowWidth} = useSelector((state) => state.windowWidth)
+  const {busyTime} = useSelector((state) => state.calendar)
   const router = useRouter()
   const [view, setView] = useState('month')
   const [date, setDate] = useState(new Date())
   const [event, setEvent] = useState([])
   const [eventView, setEventView] = useState(false)
   const [eventSaved, setEventSaved] = useState()
-  const {windowWidth} = useSelector((state) => state.windowWidth)
+  const [currentBusyTime, setCurrentBusyTime] = useState()
+
   dayjs.extend(localizedFormat); // Para formatear las fechas
   dayjs.locale('es'); // Cambiar el idioma a español
   const localizer = dayjsLocalizer(dayjs)
@@ -63,10 +66,10 @@ export default function Admin() {
     useEffect(()=>{
   dispatch(upDateCalendar())
   dispatch(getCurrentDollar())
+  dispatch(getBusyTime())
   },[])
 
   useEffect(()=>{
-
     let currentEvent = []
         calendar.forEach(e => {
           let month = e.startDate.split('-')[1]
@@ -91,6 +94,11 @@ export default function Admin() {
     });
     setEvent(currentEvent)
     },[calendar])
+
+
+    useEffect(()=>{
+      if(busyTime)setCurrentBusyTime(busyTime.busyTime)
+      },[busyTime])
 
   const onView = (e) =>{
    if(view !== e) setView(e)
@@ -158,9 +166,8 @@ export default function Admin() {
 
 
   const slotPropGetter = (date) => {
-    const disabledDates = [new Date(2024, 9, 21, 14), new Date(2024, 9, 21, 15)];  // Fechas deshabilitadas
-    
-    if (date && disabledDates.some(d => d.toDateString() === date.toDateString() && d.getHours() === date.getHours() && d.getMinutes() === date.getMinutes() ) ){
+
+    if (date && currentBusyTime && currentBusyTime.some(d => d.date === date.toDateString() && d.hour === date.getHours() && d.minute === date.getMinutes() ) ){
       return {
         style: {
           backgroundColor: '#f0f0f0',

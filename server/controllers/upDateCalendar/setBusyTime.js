@@ -10,15 +10,21 @@ const { models } = require('../../db')
     const busyTime = await models.BusyTime.findAll()
 
     if(busyTime.length > 0){
-        busyTime[0].busyTime = [... busyTime[0].busyTime, req.body]
-        busyTime[0].save()
+       const find =  busyTime[0].busyTime.find(e => e.date === req.body.date && e.hour === req.body.hour && e.minute === req.body.minute)
+       console.log('esto es find', find)
+        if(find){
+         const filter = busyTime[0].busyTime.filter(e => e.date !== req.body.date && e.hour !== req.body.hour && e.minute !== req.body.minute)
+         console.log('esto es filter', filter)
+        } else {
+            busyTime[0].busyTime = [... busyTime[0].busyTime, req.body]
+            busyTime[0].save()
+        }
     }
     else{
         await models.BusyTime.create({
             busyTime:[req.body]
         })
     }
-
          res.json(busyTime)
          
         } catch (error) {
