@@ -10,7 +10,7 @@ import 'dayjs/locale/es';
 import { useDispatch, useSelector } from 'react-redux';
 import {consultarApiMercadoPago} from '../Redux/action/mercadoPago'
 import { useRouter } from 'next/navigation';
-import { upDateCalendar } from '../Redux/action/calendar';
+import { getBusyTime, upDateCalendar } from '../Redux/action/calendar';
 import { getCurrentDollar } from '../Redux/action/currentDollar';
 import Image from 'next/image'
 import presencial from '../../../public/presencial.webp'
@@ -24,6 +24,8 @@ export default function Clases() {
   const {preference} = useSelector((state) => state.mercadoPago)
   const {calendar} = useSelector((state) => state.calendar)
   const {currentDollar} = useSelector((state) => state.currentDollar)
+  const {busyTime} = useSelector((state) => state.calendar)
+  const {windowWidth} = useSelector((state) => state.windowWidth)
   const router = useRouter()
   const [view, setView] = useState('month')
   const [date, setDate] = useState(new Date())
@@ -55,7 +57,7 @@ export default function Clases() {
   })
   const [event, setEvent] = useState([])
   const [hour, setHour] = useState('')
-  const {windowWidth} = useSelector((state) => state.windowWidth)
+  const [currentBusyTime, setCurrentBusyTime] = useState()
   dayjs.extend(localizedFormat); // Para formatear las fechas
   dayjs.locale('es'); // Cambiar el idioma a español
   const localizer = dayjsLocalizer(dayjs)
@@ -75,6 +77,7 @@ export default function Clases() {
     useEffect(()=>{
   dispatch(upDateCalendar())
   dispatch(getCurrentDollar())
+  dispatch(getBusyTime())
   },[])
 
   useEffect(()=>{
@@ -103,6 +106,10 @@ export default function Clases() {
     });
     setEvent(currentEvent)
     },[calendar])
+
+    useEffect(()=>{
+      if(busyTime)setCurrentBusyTime(busyTime.busyTime)
+      },[busyTime])
 
 
     const hourAfterClass = (hour, minute) => {
@@ -135,17 +142,14 @@ export default function Clases() {
   }
 
   const createEvent = (e) => {
-
-    console.log('entro a creat event')
-    console.log(e)
-
+    const find = busyTime && busyTime.busyTime.find(element => element.date === e.start.toDateString() && element.hour === e.start.getHours() && element.minute === e.start.getMinutes())
     // if(windowWidth > 400 || windowWidth < 401 && e.action === 'movilClick')
+    if(!find && e.start.getDay() !== 0 && e.start.getDay() !== 6){
     if(!optionView && !inPersonView && !onlineView && !formView){
     if(view === 'month') {
       setDate(e.start)
       setView('day')}
       else{
-        console.log('entra a donde tiene que entrar')
         setOptionView(true)
     let {start} = e
     let string = start.toString()
@@ -186,6 +190,7 @@ export default function Clases() {
 
       }
     }
+  }
   }
 
   const days = {
@@ -291,7 +296,6 @@ export default function Clases() {
 
   const selectClass = (e) => {
     setOptionView(false)
-    console.log('aca esta el tipo de clase', e)
     if(e.target.alt === 'online') {
       setForm({...form, type:'online'})
       setOnlineView(true)}
@@ -304,10 +308,10 @@ export default function Clases() {
 
   const validate = (input,newStart,endClass,startClass) =>{
 
+    let date= ''
     if(newStart){
       let dateOutOfTime = newStart.split('-').slice(0,3).join('-')
  
-      let date= ''
        date = calendar.find(e  => {
         let endTime = e.startDate.split('-').slice(0,3).join('-')
         let timeOfDateChange = e.startDate.split('-').pop()
@@ -345,6 +349,7 @@ if (!input.phone) {
 } else if (!(/^\d{1,15}$/.test(input.phone))) {
   errors.phone = "Solo se permiten números";
 }
+  if(date) errors.date = true
   if(Object.keys(errors).length === 0) setDisabledButton(false)
     else setDisabledButton(true)
     return errors;
@@ -388,7 +393,28 @@ if (!input.phone) {
     showMore: total => `+ Ver más (${total})`,
   };
 
-  console.log(form)
+  const slotPropGetter = (date) => {
+
+    if (date && currentBusyTime && currentBusyTime.some(d => d.date === date.toDateString() && d.hour === date.getHours() && d.minute === date.getMinutes() ) ){
+      return {
+        style: {
+          backgroundColor: '#f0f0f0',
+          pointerEvents: 'none', 
+        }
+      };
+    }
+    return {};
+  }
+
+  const dayPropGetter = (date) => {
+    const day = date.getDay();
+    if (day === 0 || day === 6) {
+      return {
+        className: style.weekendCell
+      };
+    }
+    return {};
+  };
 
 
   return (
@@ -402,6 +428,9 @@ if (!input.phone) {
     excludedDays={[0, 6]}  
     min={new Date(2024, 10, 18, 9, 0)}  
       max={new Date(2024, 10, 18, 19, 0)} 
+      slotPropGetter={slotPropGetter}
+    dayPropGetter={dayPropGetter}
+    messages={messages}
    components={{
       dateCellWrapper: (props) => (
         <TouchCellWrapper {...props} onSelectSlot={createEvent} />
@@ -418,6 +447,8 @@ if (!input.phone) {
        min={new Date(2024, 10, 18, 9, 0)}  
       max={new Date(2024, 10, 18, 19, 0)} 
        messages={messages}
+       slotPropGetter={slotPropGetter}
+    dayPropGetter={dayPropGetter}
         />
 
      }
@@ -502,10 +533,10 @@ if (!input.phone) {
       <div>
       <label htmlFor="start">{`${days[dateGuard.day]} ${dateGuard.number} ${months[dateGuard.month]} ${hour}`}</label>
       </div>
-      <div>
+      {/* <div>
       <label htmlFor="end"></label>
       <input className={style.input} value={hour} onChange={(e) => {completedForm(e.target)}} type='time'  name='endDate' />
-        </div>
+        </div> */}
       </div>
       {warningSign && <p className={style.warningSignP}>Horario reservado, 
         cambiar horario por favor</p>}
