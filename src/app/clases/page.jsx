@@ -112,21 +112,29 @@ export default function Clases() {
       },[busyTime])
 
 
-    const hourAfterClass = (hour, minute) => {
-      let startClass
-      let endClass
+    const hourAfterClass = (hour, minute, type) => {
+      let typeClass, startClass, endClass
+      if(type) typeClass = type
+      else typeClass = form.type
+
       startClass = `${Number(hour)-2}:${minute}`
-      if(form.type === 'inPerson') {
+      if(typeClass === 'inPerson') {
         endClass = `${Number(hour)+2}:${minute}`}
       else{ if(minute > 29) {
         endClass = `${Number(hour) + 2}:${Number(minute) - 30}`}
          else {
         endClass = `${Number(hour) + 1}:${Number(minute) + 30}`}}
-
- 
+        
 
         if(startClass && startClass.length === 4)  startClass = 0 + startClass
-        if(endClass && endClass.length === 4)  endClass = 0 + endClass 
+        if(endClass){
+          let [newHour, newMinute] = endClass.split(':')
+          if(newHour.length === 1) newHour = '0' + newHour
+          if(newMinute.length === 1) newMinute = '0' + newMinute
+          endClass = `${newHour}:${newMinute}`
+        }
+
+   
         return {startClass, endClass}
     }
   
@@ -142,12 +150,16 @@ export default function Clases() {
   }
 
   const createEvent = (e) => {
-    const find = busyTime && busyTime.busyTime.find(element => element.date === e.start.toDateString() && element.hour === e.start.getHours() && element.minute === e.start.getMinutes())
+    let start
+    if(windowWidth < 401 && e.action === 'movilClick') start = e.start[0]
+    else start = e.start
+    
+    const find = busyTime && busyTime.busyTime.find(element => element.date === start.toDateString() && element.hour === start.getHours() && element.minute === start.getMinutes())
     // if(windowWidth > 400 || windowWidth < 401 && e.action === 'movilClick')
-    if(!find && e.start.getDay() !== 0 && e.start.getDay() !== 6){
+    if(!find && start.getDay() !== 0 && start.getDay() !== 6){
     if(!optionView && !inPersonView && !onlineView && !formView){
     if(view === 'month') {
-      setDate(e.start)
+      setDate(start)
       setView('day')}
       else{
         setOptionView(true)
@@ -173,7 +185,7 @@ export default function Clases() {
 
     const startDate = `${date.year}-${numberMonth[date.month]}-${date.number}-${date.hour}`
 
-    validate(e,startDate,after.endClass, after.startClass)
+    validate(e,startDate,after.endClass, after.startClass,start)
 
     setForm({...form, startDate: startDate, amount:currentDollar*50})
     setDateGuard(date)
@@ -249,12 +261,9 @@ export default function Clases() {
   }
 
 
-
   const scheduleGuard = () => {
     dispatch(consultarApiMercadoPago(form))
   }
-
-  
 
   const completedForm = (e) => {
  
@@ -274,7 +283,7 @@ export default function Clases() {
 
       let newEnd = startDate.join('-')
 
-      setErrors(validate(e, newStart, after.endClass, after.startClass))
+      setErrors(validate(e, newStart, after.endClass, after.startClass,date))
       setForm({...form, startDate:newStart, endDate:newEnd})
 
     }else {
@@ -284,17 +293,20 @@ export default function Clases() {
 
       let after = hourAfterClass(hour, minute)
 
-
-
        startDate =  form.startDate.split('-')
       startDate[3] = after.endClass
       let newEnd = startDate.join('-')
       
-      setErrors(validate({...form, [e.name]: e.value}))
+      setErrors(validate({...form, [e.name]: e.value},form.startDate.split('-').pop(),after.endClass, after.startClass,date))
       setForm({...form,[e.name]:e.value,endDate:newEnd})}
   }
 
   const selectClass = (e) => {
+    let [hour,minute] = form.startDate.split('-').pop().split(':')
+
+     const after = hourAfterClass(hour, minute, e.target.alt)
+     validate(e, form.startDate,after.endClass, after.startClass,date )
+
     setOptionView(false)
     if(e.target.alt === 'online') {
       setForm({...form, type:'online'})
@@ -302,31 +314,40 @@ export default function Clases() {
     else {
       setForm({...form, type:'inPerson'})
       setInPersonView(true)}
+
   }
 
 
 
-  const validate = (input,newStart,endClass,startClass) =>{
+  const validate = (input,newStart,endClass,startClass,today) =>{
 
     let date= ''
     if(newStart){
       let dateOutOfTime = newStart.split('-').slice(0,3).join('-')
- 
        date = calendar.find(e  => {
         let endTime = e.startDate.split('-').slice(0,3).join('-')
         let timeOfDateChange = e.startDate.split('-').pop()
         timeOfDateChange = timeOfDateChange.split(':').slice(0,2).join(':')
 
+
         return dateOutOfTime === endTime ? timeOfDateChange >= startClass ? timeOfDateChange <= endClass ? true : false :false :false
       } )
 
-      if(date){
-        setWarninSing(true)
-          setDisabledButton(true)
-      } else {
-        setWarninSing(false)
-        setDisabledButton(false)}
-      } 
+    } 
+      
+    if(today && !date || today && !newStart ){
+
+      date = busyTime.busyTime.find(e  => {
+       return today.toDateString() === e.date ? e.hour + ':'+e.minute >= startClass ? e.hour + ':'+e.minute <= endClass ? true : false :false :false
+     } )
+    }
+
+    if(date){
+      setWarninSing(true)
+        setDisabledButton(true)
+    } else {
+      setWarninSing(false)
+      setDisabledButton(false)}
 
     let errors = {};
     if (!input.clientName) {
@@ -349,7 +370,7 @@ if (!input.phone) {
 } else if (!(/^\d{1,15}$/.test(input.phone))) {
   errors.phone = "Solo se permiten números";
 }
-  if(date) errors.date = true
+  if(date) errors.date = 'Horario reservado, cambiar horario por favor'
   if(Object.keys(errors).length === 0) setDisabledButton(false)
     else setDisabledButton(true)
     return errors;
@@ -415,7 +436,6 @@ if (!input.phone) {
     }
     return {};
   };
-
 
   return (
     <div className={style.divContainer}>
@@ -538,6 +558,7 @@ if (!input.phone) {
       <input className={style.input} value={hour} onChange={(e) => {completedForm(e.target)}} type='time'  name='endDate' />
         </div> */}
       </div>
+      {/* {errors.date && <p className={style.warningSignP}>{errors.date}</p>} */}
       {warningSign && <p className={style.warningSignP}>Horario reservado, 
         cambiar horario por favor</p>}
 

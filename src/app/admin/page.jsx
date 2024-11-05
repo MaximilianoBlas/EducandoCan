@@ -110,11 +110,15 @@ export default function Admin() {
 
   const createEvent = (e) => {
 
-    if(view === 'month' && e.start.getDay() !== 0 && e.start.getDay() !== 6) {
-      setDate(e.start)
+    let start
+    if(windowWidth < 401 && e.action === 'movilClick') start = e.start[0]
+    else start = e.start
+
+    if(view === 'month' && start.getDay() !== 0 && start.getDay() !== 6) {
+      setDate(start)
       setView('day')}
-      else if(e.start.getDay() !== 0 && e.start.getDay() !== 6){
-        dispatch(setBusyTime({date: e.start.toDateString(), hour:  e.start.getHours(), minute: e.start.getMinutes()}))
+      else if(start.getDay() !== 0 && start.getDay() !== 6){
+        dispatch(setBusyTime({date: start.toDateString(), hour:  start.getHours(), minute: start.getMinutes()}))
       }
   }
 
