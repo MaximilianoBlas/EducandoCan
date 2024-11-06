@@ -6,6 +6,7 @@ import { MercadoPago } from "./slices/mercadoPago";
 import { Calendar } from "./slices/calendar";
 import { CurrentDollar } from "./slices/currentDollar";
 import { WindowWidth } from "./slices/windowWidth";
+import { User } from "./slices/user";
 
 
 
@@ -15,7 +16,8 @@ export default configureStore ({
        mercadoPago: MercadoPago.reducer,
        calendar: Calendar.reducer,
        currentDollar: CurrentDollar.reducer,
-       windowWidth: WindowWidth.reducer
+       windowWidth: WindowWidth.reducer,
+       user: User.reducer
     }
 }) 
 

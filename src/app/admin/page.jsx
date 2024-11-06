@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
 import { getBusyTime, setBusyTime, upDateCalendar } from '../Redux/action/calendar';
 import { getCurrentDollar } from '../Redux/action/currentDollar';
+import { getUser } from "../Redux/action/user";
 
 
 export default function Admin() {
@@ -19,6 +20,7 @@ export default function Admin() {
   const {calendar} = useSelector((state) => state.calendar)
   const {windowWidth} = useSelector((state) => state.windowWidth)
   const {busyTime} = useSelector((state) => state.calendar)
+  const {user} = useSelector( state => state.user)
   const router = useRouter()
   const [view, setView] = useState('month')
   const [date, setDate] = useState(new Date())
@@ -26,6 +28,9 @@ export default function Admin() {
   const [eventView, setEventView] = useState(false)
   const [eventSaved, setEventSaved] = useState()
   const [currentBusyTime, setCurrentBusyTime] = useState()
+  const [calendarView, setCalendarView] = useState(false)
+  const [userView, setUserView] = useState(true)
+  const [userInput, setUserInput] = useState('')
 
   dayjs.extend(localizedFormat); // Para formatear las fechas
   dayjs.locale('es'); // Cambiar el idioma a español
@@ -99,6 +104,13 @@ export default function Admin() {
     useEffect(()=>{
       if(busyTime)setCurrentBusyTime(busyTime.busyTime)
       },[busyTime])
+
+      useEffect(()=>{
+        if(user){
+          setUserView(false)
+          setCalendarView(true)
+        }
+        },[user])
 
   const onView = (e) =>{
    if(view !== e) setView(e)
@@ -197,7 +209,25 @@ export default function Admin() {
   return (
     <div className={style.divContainer}>
 
-      {windowWidth < 401 && <Calendar selectable  
+      {
+        userView && 
+        <div>
+          <h2>Acceso</h2>
+          <div>
+      <label htmlFor="user">Apellido</label>
+      <input className={style.user} value={userInput} onChange={(e) => {setUserInput(e.target.value)}} type="text" name='user' />
+        </div>
+        <button className={style.button}  onClick={(e) =>{dispatch(getUser(userInput))}}>Agendar</button>
+
+
+
+
+        </div>
+      }
+
+
+
+      {calendarView && windowWidth < 401 && <Calendar selectable  
     onSelectSlot={createEvent} 
     onSelectEvent={e => openEvent(e)}
     localizer={localizer} events={event} view={view} date={date}
@@ -215,7 +245,7 @@ export default function Admin() {
       )
     }}
      /> }
-     { windowWidth > 400 &&
+     { calendarView && windowWidth > 400 &&
       <Calendar selectable  
       onSelectSlot={(e) => createEvent(e)} 
       onSelectEvent={e => openEvent(e)}

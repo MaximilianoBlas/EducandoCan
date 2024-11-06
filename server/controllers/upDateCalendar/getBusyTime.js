@@ -3,10 +3,11 @@ const { models } = require('../../db')
 
  const getBusyTime = async (req, res) => {
 
-  console.log('entra al controlador busy time')
-
   try {
-    const busyTime = await models.BusyTime.findOne()
+    // const user = await models.BusyTime.findOne()
+   const user =  models.BusyTime.create({
+      user:'colo'
+  })
 
          res.json(busyTime)
          
