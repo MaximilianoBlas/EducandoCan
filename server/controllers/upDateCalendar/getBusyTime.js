@@ -4,10 +4,7 @@ const { models } = require('../../db')
  const getBusyTime = async (req, res) => {
 
   try {
-    // const user = await models.BusyTime.findOne()
-   const user =  models.BusyTime.create({
-      user:'colo'
-  })
+    const busyTime = await models.BusyTime.findOne()
 
          res.json(busyTime)
          

@@ -62,12 +62,19 @@ export default function Admin() {
     Dec: 'Diciembre'
   }
 
-
-
-
-
   if(preference)router.push(preference)
 
+    useEffect(()=>{
+      if(user){
+        setUserView(false)
+        setCalendarView(true)
+      }
+      },[user])
+
+      if(calendarView){
+
+      
+    
     useEffect(()=>{
   dispatch(upDateCalendar())
   dispatch(getCurrentDollar())
@@ -105,12 +112,8 @@ export default function Admin() {
       if(busyTime)setCurrentBusyTime(busyTime.busyTime)
       },[busyTime])
 
-      useEffect(()=>{
-        if(user){
-          setUserView(false)
-          setCalendarView(true)
-        }
-        },[user])
+    }
+
 
   const onView = (e) =>{
    if(view !== e) setView(e)
@@ -215,7 +218,7 @@ export default function Admin() {
           <h2>Acceso</h2>
           <div>
       <label htmlFor="user">Apellido</label>
-      <input className={style.user} value={userInput} onChange={(e) => {setUserInput(e.target.value)}} type="text" name='user' />
+      <input className={style.user} value={userInput} onChange={(e) => {setUserInput(e.target.value)}} type="password" name='user' />
         </div>
         <button className={style.button}  onClick={(e) =>{dispatch(getUser(userInput))}}>Agendar</button>
 

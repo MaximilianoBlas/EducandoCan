@@ -6,10 +6,10 @@ const { models } = require('../../db')
   console.log('entra al controlador get user')
 
   try {
-    // const user = await models.User.findOne()
-        models.User.create({
-        user:'colo'
-    })
+    const user = await models.User.findOne()
+
+    console.log(user)
+
 
          res.json('usuario creado')
          
