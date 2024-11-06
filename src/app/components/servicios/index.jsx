@@ -17,7 +17,7 @@ exit={{ opacity: 0 }}
 ></motion.div>
       <Card servicio='Clases' enlace='/clases'/>
       {/* <Card servicio='Rehabilitación' enlace='/rehabilitacion'/> */}
-      <Card servicio='comunidad' enlace='/comunidad'/>
+      <Card servicio='Comunidad' enlace='/comunidad'/>
     </div>
   )
 }

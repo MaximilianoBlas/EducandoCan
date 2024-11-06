@@ -3,12 +3,14 @@
     height: 300px;
     perspective: 1000px;
   }
-  
+/* #0567A6*/
+/*#089FC0*/
+
   .card {
     height: 100%;
     border-radius: 50px;
     background: linear-gradient(135deg, rgb(0, 255, 214) 0%, rgb(8, 226, 96) 100%);
-    background: #D2B48C;
+    background: #0567A6;
     transition: all 0.5s ease-in-out;
     transform-style: preserve-3d;
     box-shadow: rgba(5, 71, 17, 0) 40px 50px 25px -40px, rgba(5, 71, 17, 0.2) 0px 25px 25px -5px;
@@ -27,11 +29,13 @@
     border-left: 1px solid white;
     border-bottom: 1px solid white;
     transition: all 0.5s ease-in-out;
+    
   }
   
   .content {
     padding: 100px 60px 0px 30px;
     transform: translate3d(0, 0, 26px);
+    
   }
   
   .content .title {
@@ -40,12 +44,14 @@
     color: #333333;
     font-weight: 900;
     font-size: 20px;
+    color: #089FC0;
   }
   
   .content .text {
     display: block;
     color: rgba(0, 137, 78, 0.7647058824);
     color: #333333;
+    color: #089FC0;
     font-size: 15px;
     margin-top: 20px;
   }
@@ -82,6 +88,7 @@
     color: #333333;
     font-weight: bolder;
     font-size: 12px;
+    /* color: #089FC0; */
   }
   
   .bottom .viewMore .svg {
