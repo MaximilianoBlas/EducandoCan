@@ -2,7 +2,8 @@ const Sequelize = require('sequelize')
 const fs = require('fs');
 const path = require('path');
 const Calendar = require('./models/bd/bdCalendar')
-const BusiTime = require('./models/bd/busyTime')
+const BusiTime = require('./models/bd/busyTime');
+const user = require('./models/bd/user');
 
 const sequelize = new Sequelize({
           database: process.env.DB_NAME,
@@ -47,5 +48,6 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 Calendar(sequelize);
 BusiTime(sequelize)
+user(sequelize)
 
 module.exports = sequelize
