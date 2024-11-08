@@ -3,6 +3,6 @@ const routerUser = Router()
 
 const { getUser } = require("../../controllers/user/user")
 
-routerUser.get('/', getUser)
+routerUser.post('/', getUser)
 
 module.exports = routerUser
