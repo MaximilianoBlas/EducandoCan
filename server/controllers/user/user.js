@@ -9,9 +9,12 @@ const { models } = require('../../db')
     const user = await models.User.findOne()
 
     console.log(user)
+    console.log(user.user)
+    console.log(user.dataValues)
+    console.log(user.dataValues.user)
 
 
-         res.json('usuario creado')
+         res.json('')
          
         } catch (error) {
             console.log(error)}}

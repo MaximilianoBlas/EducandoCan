@@ -12,6 +12,7 @@ import { useRouter } from 'next/navigation';
 import { getBusyTime, setBusyTime, upDateCalendar } from '../Redux/action/calendar';
 import { getCurrentDollar } from '../Redux/action/currentDollar';
 import { getUser } from "../Redux/action/user";
+import User from "../components/user/user";
 
 
 export default function Admin() {
@@ -30,7 +31,7 @@ export default function Admin() {
   const [currentBusyTime, setCurrentBusyTime] = useState()
   const [calendarView, setCalendarView] = useState(false)
   const [userView, setUserView] = useState(true)
-  const [userInput, setUserInput] = useState('')
+ 
 
   dayjs.extend(localizedFormat); // Para formatear las fechas
   dayjs.locale('es'); // Cambiar el idioma a español
@@ -71,9 +72,7 @@ export default function Admin() {
       }
       },[user])
 
-      if(calendarView){
-
-      
+      // if(calendarView){
     
     useEffect(()=>{
   dispatch(upDateCalendar())
@@ -112,7 +111,7 @@ export default function Admin() {
       if(busyTime)setCurrentBusyTime(busyTime.busyTime)
       },[busyTime])
 
-    }
+    // }
 
 
   const onView = (e) =>{
@@ -213,19 +212,7 @@ export default function Admin() {
     <div className={style.divContainer}>
 
       {
-        userView && 
-        <div>
-          <h2>Acceso</h2>
-          <div>
-      <label htmlFor="user">Apellido</label>
-      <input className={style.user} value={userInput} onChange={(e) => {setUserInput(e.target.value)}} type="password" name='user' />
-        </div>
-        <button className={style.button}  onClick={(e) =>{dispatch(getUser(userInput))}}>Agendar</button>
-
-
-
-
-        </div>
+        userView && <User/> 
       }
 
 
