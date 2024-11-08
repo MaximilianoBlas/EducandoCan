@@ -3,7 +3,7 @@ const { models } = require('../../db')
 
  const getUser = async (req, res) => {
 
-  const input = req.body
+  const input = req.body.payload
 
   console.log('entra al controlador get user')
 
