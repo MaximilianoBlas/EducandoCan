@@ -4,10 +4,10 @@ import { useDispatch } from 'react-redux'
 import style from './user.module.css'
 
 
-export default function User() {
+export default function User(prop) {
     const [userInput, setUserInput] = useState('')
     const dispatch = useDispatch()
-
+    console.log(prop)
 
   return (
     <div>

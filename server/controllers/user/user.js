@@ -14,7 +14,7 @@ const { models } = require('../../db')
 
 
     if(input === user.user)res.json('match')
-      else  res.json('')
+      else  res.json('no')
 
 
         

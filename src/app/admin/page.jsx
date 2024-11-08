@@ -31,6 +31,7 @@ export default function Admin() {
   const [currentBusyTime, setCurrentBusyTime] = useState()
   const [calendarView, setCalendarView] = useState(false)
   const [userView, setUserView] = useState(true)
+  const [incorrect, setIncorrect] = useState(false)
  
 
   dayjs.extend(localizedFormat); // Para formatear las fechas
@@ -66,10 +67,11 @@ export default function Admin() {
   if(preference)router.push(preference)
 
     useEffect(()=>{
-      if(user){
+      if(user === 'match'){
         setUserView(false)
         setCalendarView(true)
-      }
+        setIncorrect(false)
+      } else if(user === 'no') setIncorrect(true)
       },[user])
 
       // if(calendarView){
@@ -212,7 +214,7 @@ export default function Admin() {
     <div className={style.divContainer}>
 
       {
-        userView && <User/> 
+        userView && <User incorrect={incorrect}/> 
       }
 
 
