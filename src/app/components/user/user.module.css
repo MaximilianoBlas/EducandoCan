@@ -1,0 +1,34 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+
+  .formContainer {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 5vh;
+
+    .inputContainer {
+      display: flex;
+      .iconCloseEye {
+        all: unset;
+        margin: 0 0 -1% -7%;
+      }
+
+      .iconOpenEye {
+        all: unset;
+        margin: 0 0 -1% -7%;
+      }
+    }
+
+    .incorrectPContainer {
+      .incorrectP {
+        color: red;
+        font-size: small;
+        margin: 1vh 0 -3.4vh 0;
+      }
+    }
+  }
+}

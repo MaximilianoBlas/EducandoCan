@@ -208,16 +208,11 @@ export default function Admin() {
     return {};
   };
 
- 
 
   return (
     <div className={style.divContainer}>
 
-      {
-        userView && <User incorrect={incorrect}/> 
-      }
-
-
+      {userView && <User incorrect={incorrect}/>}
 
       {calendarView && windowWidth < 401 && <Calendar selectable  
     onSelectSlot={createEvent} 
