@@ -1,11 +1,10 @@
 const { models } = require("../../db");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 
 const getUser = async (req, res) => {
   const input = req.body.payload;
 
   try {
-    // Función para hashear la contraseña
     async function hashPassword(password) {
       const saltRounds = 10; // Puedes ajustar la cantidad de rondas de sal
       const hashedPassword = await bcrypt.hash(password, saltRounds);
