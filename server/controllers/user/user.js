@@ -6,12 +6,11 @@ const getUser = async (req, res) => {
 
   try {
     async function hashPassword(password) {
-      const saltRounds = 10; // Puedes ajustar la cantidad de rondas de sal
+      const saltRounds = 10;
       const hashedPassword = await bcrypt.hash(password, saltRounds);
       return hashedPassword;
     }
 
-    // Verificar la contraseña al hacer login
     async function verifyPassword(password, hashedPassword) {
       return await bcrypt.compare(password, hashedPassword);
     }
@@ -25,16 +24,8 @@ const getUser = async (req, res) => {
 
     const verify = await verifyPassword(input, user.user);
 
-    console.log(
-      "esta es la respuesta de verificacion de la contraseña",
-      verify
-    );
-
     if (verify) res.json(verify);
     else res.json("incorrect");
-
-    // if (input === user.user) res.json("match");
-    // else res.json("no");
   } catch (error) {
     console.log(error);
   }
