@@ -30,7 +30,8 @@ const getUser = async (req, res) => {
       verify
     );
 
-    res.json(verify);
+    if (verify) res.json(verify);
+    else res.json("incorrect");
 
     // if (input === user.user) res.json("match");
     // else res.json("no");
