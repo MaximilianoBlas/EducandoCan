@@ -16,8 +16,11 @@ const getUser = async (req, res) => {
       return await bcrypt.compare(password, hashedPassword);
     }
 
+    const password = hashPassword(input);
+    console.log(password);
+
     const user = await models.User.create({
-      user: hashPassword(input),
+      user: password,
     });
 
     res.json(user);
