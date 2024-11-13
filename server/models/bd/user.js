@@ -1,15 +1,15 @@
-const { Sequelize, DataTypes } = require('sequelize');
+const { Sequelize, DataTypes } = require("sequelize");
 const sequelize = new Sequelize(
-  'railway', 
-  'postgres', 
-  'alvwOLooJwOQwlDrFaOBqtTvHEGovvpK',
+  "railway",
+  "postgres",
+  "alvwOLooJwOQwlDrFaOBqtTvHEGovvpK",
   {
-    host: 'postgres-ppsc.railway.internal', 
-    port: 5432, 
-    dialect: 'postgres', 
+    host: "postgres-ppsc.railway.internal",
+    port: 5432,
+    dialect: "postgres",
   }
 );
-  
+
 module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define(
@@ -31,15 +31,14 @@ module.exports = (sequelize) => {
   );
 };
 
-
-sequelize.sync({ force: false }) 
-    .then(async () => {
-        const usersCount = await User.count(); 
-        if (usersCount === 0) {
-            await User.bulkCreate([
-                { user: 'Colo', }
-            ]);
-            console.log('Datos iniciales insertados en la tabla User');
-        }
-    })
-    .catch(error => console.error('Error al sincronizar la base de datos:', error));
+// sequelize.sync({ force: false })
+//     .then(async () => {
+//         const usersCount = await User.count();
+//         if (usersCount === 0) {
+//             await User.bulkCreate([
+//                 { user: 'Colo', }
+//             ]);
+//             console.log('Datos iniciales insertados en la tabla User');
+//         }
+//     })
+//     .catch(error => console.error('Error al sincronizar la base de datos:', error));
