@@ -16,16 +16,22 @@ const getUser = async (req, res) => {
       return await bcrypt.compare(password, hashedPassword);
     }
 
-    const password = await hashPassword(input);
-    console.log(password);
+    // const password = await hashPassword(input);
+    // const user = await models.User.create({
+    //   user: password,
+    // });
+    // res.json(user);
+    const user = await models.User.findOne();
 
-    const user = await models.User.create({
-      user: password,
-    });
+    const verify = await verifyPassword(input, user.user);
 
-    res.json(user);
+    console.log(
+      "esta es la respuesta de verificacion de la contraseña",
+      verify
+    );
 
-    // const user = await models.User.findOne();
+    res.json(verify);
+
     // if (input === user.user) res.json("match");
     // else res.json("no");
   } catch (error) {
