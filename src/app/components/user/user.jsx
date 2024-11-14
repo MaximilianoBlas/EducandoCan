@@ -67,7 +67,7 @@ export default function User(prop) {
           <input
             className={style.user}
             value={userInput}
-            onChange={inputChange}
+            onChange={(e) => inputChange(e)}
             type="text"
             name="user"
             autoFocus
