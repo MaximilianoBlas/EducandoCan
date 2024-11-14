@@ -100,7 +100,7 @@ export default function User(prop) {
       <button
         className={style.button}
         onClick={() => {
-          dispatch(getUser(userInput));
+          dispatch(getUser(value));
         }}
       >
         Enviar

@@ -68,11 +68,12 @@ export default function Admin() {
   if (preference) router.push(preference);
 
   useEffect(() => {
-    if (user) {
+    if (user === "incorrect") setIncorrect(true);
+    else if (user) {
       setUserView(false);
       setCalendarView(true);
       setIncorrect(false);
-    } else if (user === "incorrect") setIncorrect(true);
+    }
   }, [user]);
 
   // if(calendarView){
