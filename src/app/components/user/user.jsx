@@ -23,7 +23,10 @@ export default function User(prop) {
 
     let newValue = e.target.value;
 
-    if (e.nativeEvent.inputType === "insertText") {
+    if (
+      e.nativeEvent.inputType === "insertText" ||
+      e.nativeEvent.inputType === "insertCompositionText"
+    ) {
       if (value.length === 0) {
         setValue(newValue);
         setUserInput(newValue);
@@ -67,7 +70,7 @@ export default function User(prop) {
           <input
             className={style.user}
             value={userInput}
-            onChange={(e) => inputChange(e)}
+            onChange={inputChange}
             type="text"
             name="user"
             autoFocus
