@@ -57,9 +57,6 @@ export default function User(prop) {
       setUserInput("*".repeat(newValue.length));
     }
   };
-  console.log(stateTimeOut);
-  console.log(userInput);
-  console.log(value);
 
   return (
     <div className={style.main}>

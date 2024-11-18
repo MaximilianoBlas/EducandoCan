@@ -35,6 +35,8 @@ export default function Admin() {
   const [calendarView, setCalendarView] = useState(false);
   const [userView, setUserView] = useState(true);
   const [incorrect, setIncorrect] = useState();
+  const [confirmation, setConfirmation] = useState(false);
+  const [waitingForConfirmation, setWaitingForConfirmation] = useState();
 
   dayjs.extend(localizedFormat); // Para formatear las fechas
   dayjs.locale("es"); // Cambiar el idioma a español
@@ -134,13 +136,12 @@ export default function Admin() {
       setDate(start);
       setView("day");
     } else if (start.getDay() !== 0 && start.getDay() !== 6) {
-      dispatch(
-        setBusyTime({
-          date: start.toDateString(),
-          hour: start.getHours(),
-          minute: start.getMinutes(),
-        })
-      );
+      setConfirmation(true);
+      setWaitingForConfirmation({
+        date: start.toDateString(),
+        hour: start.getHours(),
+        minute: start.getMinutes(),
+      });
     }
   };
 
@@ -223,6 +224,11 @@ export default function Admin() {
     return {};
   };
 
+  const setBlock = () => {
+    dispatch(setBusyTime(waitingForConfirmation));
+    setConfirmation(false);
+  };
+
   return (
     <div className={style.divContainer}>
       {userView && <User incorrect={incorrect} />}
@@ -270,6 +276,32 @@ export default function Admin() {
           messages={messages}
         />
       )}
+      {confirmation && (
+        <div className={style.formContainer}>
+          <div className={style.containerWithoutCloseButton}>
+            <h2>{`Bloquear casillero ${waitingForConfirmation.hour}${
+              Number(waitingForConfirmation.minute)
+                ? ":" + Number(waitingForConfirmation.minute)
+                : ""
+            } hs`}</h2>
+            <div className={style.buttonsContainer}>
+              {/* <div className={style.closeButtonContainer}> */}
+              <button className={style.closeButton} onClick={() => setBlock()}>
+                Si
+              </button>
+              {/* </div> */}
+              {/* <div className={style.closeButtonContainer}> */}
+              <button
+                className={style.closeButton}
+                onClick={() => setConfirmation(false)}
+              >
+                No
+              </button>
+              {/* </div> */}
+            </div>
+          </div>
+        </div>
+      )}
 
       {eventView && (
         <div className={style.formContainer}>
@@ -283,17 +315,12 @@ export default function Admin() {
           </div>
           <div className={style.containerWithoutCloseButton}>
             <h2>Clase Agendada</h2>
-            {/* <div className={style.inputTimeContainer}> */}
             <div className={style.inputContainer}>
               <div>
                 <h5>{`Clase: ${eventSaved.startClass}`}</h5>
                 <h5></h5>
               </div>
-              {/* <div>
-      <h5 >{`Fin de clase: ${eventSaved.endClass}`}</h5>
-        </div> */}
             </div>
-            {/* </div> */}
             <div className={style.inputContainer}>
               <h5>{`Nombre: ${eventSaved.name}`}</h5>
               <h5>
