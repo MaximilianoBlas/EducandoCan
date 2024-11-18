@@ -37,6 +37,7 @@ export default function Admin() {
   const [incorrect, setIncorrect] = useState();
   const [confirmation, setConfirmation] = useState(false);
   const [waitingForConfirmation, setWaitingForConfirmation] = useState();
+  const [bloquear, setBloquear] = useState("Desbloquear");
 
   dayjs.extend(localizedFormat); // Para formatear las fechas
   dayjs.locale("es"); // Cambiar el idioma a español
@@ -136,12 +137,24 @@ export default function Admin() {
       setDate(start);
       setView("day");
     } else if (start.getDay() !== 0 && start.getDay() !== 6) {
-      setConfirmation(true);
-      setWaitingForConfirmation({
+      const dateObject = {
         date: start.toDateString(),
         hour: start.getHours(),
         minute: start.getMinutes(),
-      });
+      };
+
+      if (
+        busyTime.busyTime.find(
+          (time) =>
+            time.date === dateObject.date &&
+            time.hour === dateObject.hour &&
+            time.minute === dateObject.minute
+        )
+      )
+        setBloquear("Desbloquear");
+      else setBloquear("Bloquear");
+      setConfirmation(true);
+      setWaitingForConfirmation(dateObject);
     }
   };
 
@@ -279,7 +292,7 @@ export default function Admin() {
       {confirmation && (
         <div className={style.formContainer}>
           <div className={style.containerWithoutCloseButton}>
-            <h2>{`Bloquear casillero ${waitingForConfirmation.hour}${
+            <h2>{`${bloquear} casillero ${waitingForConfirmation.hour}${
               Number(waitingForConfirmation.minute)
                 ? ":" + Number(waitingForConfirmation.minute)
                 : ""
