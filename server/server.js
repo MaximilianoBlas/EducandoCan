@@ -1,12 +1,12 @@
-require('dotenv').config();
-const express = require("express")
-const app = express()
-const sequelize = require('./db')
-const PORT = 4000
-const cors = require("cors")
-const routerApi = require('./routes/index')
+require("dotenv").config();
+const express = require("express");
+const app = express();
+const sequelize = require("./db");
+const PORT = 4000;
+const cors = require("cors");
+const routerApi = require("./routes/index");
 
-sequelize.sync()
+sequelize.sync();
 //   .then(() => {
 //     app.listen(3000, () => {
 //       console.log('Server is running on port 3000');
@@ -18,7 +18,6 @@ sequelize.sync()
 // // IMPORTANTE APLICAR CUANDO FUNCIONE LA BASE DE DATOS
 // // parece que esto hace el parse
 
-
 // app.use(cors())
 
 // app.use(cors({
@@ -27,45 +26,42 @@ sequelize.sync()
 //     credentials: true, // Si necesitas enviar cookies o autenticación
 // }));
 
-const allowedOrigins = ['http://localhost:3000', 'https://educando-can.vercel.app'];
+const allowedOrigins = [
+  "http://localhost:3000",
+  "https://educando-can.vercel.app",
+];
 
-app.use(cors({
+app.use(
+  cors({
     origin: function (origin, callback) {
-        // Permitir solicitudes sin origen (como las de Postman o cURL)
-        if (!origin) return callback(null, true);
-        // Verificar si el origen está en la lista de permitidos
-        if (allowedOrigins.indexOf(origin) === -1) {
-            const msg = 'El dominio no está autorizado por CORS.';
-            return callback(new Error(msg), false);
-        }
-        return callback(null, true);
+      // Permitir solicitudes sin origen (como las de Postman o cURL)
+      if (!origin) return callback(null, true);
+      // Verificar si el origen está en la lista de permitidos
+      if (allowedOrigins.indexOf(origin) === -1) {
+        const msg = "El dominio no está autorizado por CORS.";
+        return callback(new Error(msg), false);
+      }
+      return callback(null, true);
     },
-    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos permitidos
+    methods: ["GET", "POST", "PUT", "DELETE"], // Métodos permitidos
     credentials: true, // Habilita el envío de cookies o credenciales
-}))
+  })
+);
 
-
-app.use((req, res, next) => {
-
-    //Access-Control-Allow-Origin
-    res.header(
-        "Access-Control-Request-Methods",
-        " POST"
-    );
-    res.header("Access-Control-Allow-Origin",'http://localhost:3000')
-    res.header("Access-Control-Allow-Origin");
-    res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
-    res.header("Access-Control-Allow-Credentials", "true");
-    res.header(
-        "Access-Control-Allow-Headers",
-        "Origin, X-Requested-With, Content-Type, Accept"
-    );
-    res.header(
-        "Access-Control-Allow-Methods",
-        "GET, POST, OPTIONS, PUT, DELETE"
-    );
-    next();
-});
+// app.use((req, res, next) => {
+//   //Access-Control-Allow-Origin
+//   res.header("Access-Control-Request-Methods", " POST");
+//   res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+//   res.header("Access-Control-Allow-Origin");
+//   res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
+//   res.header("Access-Control-Allow-Credentials", "true");
+//   res.header(
+//     "Access-Control-Allow-Headers",
+//     "Origin, X-Requested-With, Content-Type, Accept"
+//   );
+//   res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
+//   next();
+// });
 
 // app.use((req, res, next) => {
 //     res.setHeader('Access-Control-Allow-Origin','*')
@@ -73,17 +69,15 @@ app.use((req, res, next) => {
 //     next()
 // })
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-
-app.use(express.json())
-app.use(express.urlencoded({extended:true}))
-
-app.use('/api/v1', routerApi)
+app.use("/api/v1", routerApi);
 
 // app.get("/api/home", (req, res) => {
 //     res.json({message:"Hello World!"})
 // })
 
 app.listen(PORT, () => {
-    console.log(`Server started on port ${PORT}`)
-})
+  console.log(`Server started on port ${PORT}`);
+});
